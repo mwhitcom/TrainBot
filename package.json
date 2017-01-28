@@ -1,0 +1,36 @@
+{
+  "name": "train-bot",
+  "version": "1.0.0",
+  "description": "Website template for Personal Trainers",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mwhitcom/TrainBot.git"
+  },
+  "author": "FunBot (Andrey Orlov, Matt Whitcomb, Ryan House)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mwhitcom/TrainBot/issues"
+  },
+  "homepage": "https://github.com/mwhitcom/TrainBot#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.15.0",
+    "express-validator": "^3.1.2",
+    "method-override": "^2.3.7",
+    "mysql": "^2.13.0",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^3.30.0"
+  }
+}
