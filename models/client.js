@@ -4,14 +4,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len[1]
+                len: [1]
             }
         },
         lastName: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len[1]
+                len: [1]
             }
         },
         email: {
@@ -22,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         phoneNumber: {
-            type: DataTypes.INTGER
-            allowNull: false,
-            validate: {
-                not: ["[a-z]", "i"]
-            }
+            type: DataTypes.INTEGER
+            // allowNull: false,
+            // validate: {
+            //     not: ["[a-z]", "i"]
+            // }
         }
 
     });
