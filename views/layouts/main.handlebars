@@ -1,50 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>LoginApp</title>
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/assets/css/reset.css" type="text/css" />
+	<link rel="stylesheet" href="/assets/css/styles.css" type="text/css" />
+	<script src="/javascript/app.js"></script>
+	<title>TrainBot</title>
 </head>
 <body>
-	<div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            {{#if user}}
-              <li role="presentation"><a href="/">Dashboard</a></li>
-              <li role="presentation"><a href="/logout">Logout</a></li>
-            {{else}}
-              <li role="presentation"><a href="/login">Login</a></li>
-              <li role="presentation"><a href="/register">Register</a></li>
-            {{/if}}
-          </ul>
-        </nav>
-        <h3 class="text-muted">LoginApp</h3>
-      </div>
 
+<!--Login Modal-->
+	<div class="login-modal">
+		<div class="login-modal-content">
+			<span class="close">&times;</span>
+			<h2 class="login-header">Account Login</h2>
 
-      <div class="row">
-        <div class="col-lg-12">
-          {{#if success_msg}}
-            <div class="alert alert-success">{{success_msg}}</div>
-          {{/if}}
+			<form method="POST" action="/users/login">
+				<div class="login__username">
+					<label>Username</label>
+					<input type="text" class="form-control" name="username" placeholder="Username">
+				</div>
+				<div class="login__password">
+					<label>Password</label>
+					<input type="password" class="form-control" name="password" placeholder="Password">
+				</div>
+				<button type="submit">Submit</button>
+			</form>
 
-          {{#if error_msg}}
-            <div class="alert alert-danger">{{error_msg}}</div>
-          {{/if}}
+			<div class="login-error-block">
+				{{#if success_msg}}
+					<div class="alert alert-success">{{success_msg}}</div>
+				{{/if}}
 
-          {{#if error}}
-            <div class="alert alert-danger">{{error}}</div>
-          {{/if}}
-          
-          {{{body}}}
-        </div>
+				{{#if error_msg}}
+					<div class="alert alert-danger">{{error_msg}}</div>
+				{{/if}}
 
-        
-      </div>
+				{{#if error}}
+					<div class="alert alert-danger">{{error}}</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
 
-      <footer class="footer">
-        <p>&copy; 2017 Fun Bot, Inc.</p>
-      </footer>
+<!--Register Modal-->
+	<div class="register-modal">
+		<div class="register-modal-content">
+			<span class="close">&times;</span>
+			<h2 class="page-header">Register</h2>
 
-    </div> <!-- /container -->
+			{{#if errors}}
+				{{#each errors}}
+					<div class="alert alert-danger">{{msg}}</div>
+				{{/each}}
+			{{/if}}
+
+			<form method="POST" action="/users/register">
+				<div class="register__name"> 
+					<label>Name</label>
+					<input type="text" class="form-control" placeholder="Name" name="name">
+				</div>
+				<div class="register__username">
+					<label>Username</label>
+					<input type="text" class="form-control" placeholder="Username" name="username">
+				</div>
+				<div class="register__email">
+					<label>Email</label>
+					<input type="email" class="form-control" placeholder="Email" name="email">
+				</div>
+				<div class="register__password">
+					<label>Password</label>
+					<input type="password" class="form-control" placeholder="Password" name="password">
+				</div>
+				<div class="register__password--confirm">
+					<label>Confirm Password</label>
+					<input type="password" class="form-control" placeholder="Password" name="password2">
+				</div>
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+	</div>
+
+<!--Site Header-->
+	<div class="site-header">
+		<ul>
+			<li>TrainBot</li>
+			<li class="login-button"><button type="button">Login</button></li>
+			<li class="register-button"><button type="button">Register</button></li>
+		</ul>
+	</div>
+
+<!--Page render-->
+	{{{body}}}
+
+<!--Site Footer-->
+	<footer class="site-footer">
+		<p>&copy; 2017 FunBot, Inc.</p>
+	</footer>
+
 </body>
 </html>
