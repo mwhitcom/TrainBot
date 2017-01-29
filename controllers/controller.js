@@ -4,23 +4,14 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user.js')
 const app = express();
 
-module.exports =(app) => {
+module.exports = (app) => {
 
-    // home page // 
+    // landing page
     app.get('/', (request, response) => {
-        response.render('index')
+        response.render('landing')
     });
-
-
-    app.get('/login', (request, response) => {
-        response.render('login');
-    });
-
-    app.get('/register', (request, response) => {
-        response.render('register');
-    })
     
-    app.post('/register', (request, response) => {
+    app.post('/users/register', (request, response) => {
          db.User.find({where: {username: request.username}}).success((user) => {
                 if(!user) {
                     db.User.create({
