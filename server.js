@@ -6,9 +6,10 @@ const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const exphbs = require("express-handlebars");
 const passport = require('passport');
-const http = require('http');
-// const cookieParser = require('cookie-parser');
-
+const session = require('express-session');
+const flash = require('connect-flash');
+//incription factor constant //
+const SALT_WORK_FACTOR = 12;
 // Sets up the Express App
 // =============================================================
 const app = express();
@@ -22,12 +23,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-// passport middlewear //
-// app.use(express.cookieParser());
-// app.use(express.urlencoded());
-// app.use(express.session({secret:'security'}));
-app.use(passport.initialize());
-app.use(passport.session());
 // handle bars //
 app.use(express.static(process.cwd() + "/public"));
 app.use(methodOverride("_method"));
@@ -35,7 +30,21 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 // Static directory
 app.use(express.static("./public"));
-
+// passport //
+app.use(session({
+  secret: "user secret",
+  cookie: {_expires: 10000000},
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize()); //initializes the session
+app.use(passport.session()); //tells passport to be in charge of the session
+app.use(flash());
+// App constants //
+app.use((request, response, next) => {
+  response.locals.user = request.user || null;
+  next();
+})
 // Routes =============================================================
 
 
