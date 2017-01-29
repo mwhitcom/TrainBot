@@ -13,10 +13,11 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 not: ["[a-z]",'i']
             }
-        },
+        }
+    },{
         classMethods: {
             associate: function(models){
-                Program.hasMany(models.Clients)
+                Program.hasMany(models.Client)
             }
         }
     });
