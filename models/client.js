@@ -13,22 +13,18 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 len: [1]
             }
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                isEmail: true
-            }
-        },
-        phoneNumber: {
-            type: DataTypes.INTEGER
-            // allowNull: false,
-            // validate: {
-            //     not: ["[a-z]", "i"]
-            // }
         }
-
+    },{
+        classMethods: {
+            associate: function(models){
+                Client.belongsTo(models.Program,
+                {
+                    foreignKey: {
+                        allowNull: false
+                    }
+                });
+            }
+        }
     });
     return Client;
 };
