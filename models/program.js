@@ -13,13 +13,21 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 not: ["[a-z]",'i']
             }
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true
         }
     },{
         classMethods: {
             associate: function(models){
                 Program.hasMany(models.Client)
+            },
+            associate: function(models){
+                Program.hasMany(models.WorkoutDay)
             }
-        }
+        },
+        timestamps: false
     });
     return Program;
 };
