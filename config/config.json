@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "client_profile_db",
+    "password": "Booya123",
+    "database": "trainBot_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
