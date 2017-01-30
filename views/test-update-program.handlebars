@@ -1,0 +1,16 @@
+
+    <div>
+        {{#each user}}
+            <div>
+                <h1>{{this.name}}</h1>
+                <form action="/workout/update/{{this.id}}?_method=PUT" method="POST" >
+                        <select name="program">
+                            <option value="1">Powerlifting</option>
+                            <option value="2">Crossfit</option>
+                            <option value="3">Rowing</option>
+                        </select>
+                    <button type="submit">Submit</button>
+                </form>  
+            </div>
+        {{/each}}     
+    </div>

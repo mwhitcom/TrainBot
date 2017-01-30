@@ -17,7 +17,7 @@ module.exports = (app) => {
 
     // Form page for testing DB Entry
     app.get('/workout', (request, response) => {
-        response.sendFile(path.join(__dirname,"../views/test-db-entry.html"));
+        response.render('../views/test-db-entry');
     });
 
     // Form page to enter a new workout
@@ -35,25 +35,28 @@ module.exports = (app) => {
 
 
 
-    // Not working yet...Trying to do an update to a USERs PROGRAM
     // page for update
     app.get('/workout/update', (request, response) => {
-        response.sendFile(path.join(__dirname,"../views/test-update-program.html"));
+        db.User.findAll({   
+        }).then((result) =>{
+            var userObject = {
+                user: result
+            };
+            console.log(userObject);
+            response.render('test-update-program', userObject);
+        });
     });
     // route for update
-    app.put('/workout/update', (request, response) => {
+    app.put('/workout/update/:id', (request, response) => {
         console.log(request.body);
         db.User.update({
             ProgramId: request.body.program
-        }, {
+        },{
             // purposefully put in the first user since handlebars is not up and running yet
-            where: {
-                id: 1
-            }
-        }).then((dbWorkOut) => {
-            console.log(dbWorkOut);
-        });
-        response.redirect('/workout/update');
+            where: {id: request.params.id}
+        }).then(() => {
+            response.redirect('/workout/update');
+        });  
     });
 
 
