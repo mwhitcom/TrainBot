@@ -9,18 +9,13 @@ module.exports = (sequelize, DataTypes)=>{
             type: DataTypes.TEXT,
             allowNull: false
             }
-    },
-        {
+        },{
             classMethods: {
-                associate: function(models){
-                    WorkoutDay.belongsTo(models.Program, {
-                        onDelete: 'CASCADE',
-                        foreignKey: {
-                            allowNull: false
-                        }
-                    });
-                }
-            }  
-        });
+            associate: function(models){
+                WorkoutDay.belongsTo(models.Program);
+            }
+        },
+        timestamps: false
+    });
     return WorkoutDay;
 };
