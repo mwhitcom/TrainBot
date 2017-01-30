@@ -12,7 +12,7 @@ h1, h2, h3, h4, button, ul, li, p, form, input {
 .site-header {
     background-color: #000;
     color: #fff;
-    height: 60px;
+    height: 70px;
     width: 100%;
 }
 
@@ -40,7 +40,7 @@ h1, h2, h3, h4, button, ul, li, p, form, input {
 .site-header button:focus,
 .submit-button:hover,
 .submit-button:focus {
-    background-color: #0000ff;
+    background-color: #42C79A;
     color: #fff;
     outline: none;
 }
@@ -68,7 +68,7 @@ h1, h2, h3, h4, button, ul, li, p, form, input {
     background-color: #000;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    box-shadow: 1px 1px #2f4f4f;
     width: 80%;
     color: #fff;
 }
@@ -124,11 +124,13 @@ h1, h2, h3, h4, button, ul, li, p, form, input {
 
 /*Footer styles*/
 footer {
+    clear: both;
     width: 100%;
     background-color: #000;
     height: 50px;
     text-align: center;
     color: #fff;
+    margin-top: 15px;
 }
 
 footer p {
