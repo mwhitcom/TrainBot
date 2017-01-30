@@ -18,8 +18,12 @@ module.exports = (sequelize, DataTypes)=> {
            return done(null, false);
          }
        });
-     }
-   }
+     },
+      associate: function(models){
+        User.belongsTo(models.Program);
+      }
+   },
+   timestamps: false
  }
  
 

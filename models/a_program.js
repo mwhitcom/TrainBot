@@ -21,9 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     },{
         classMethods: {
             associate: function(models){
-                Program.hasMany(models.Client)
-            },
-            associate: function(models){
+                Program.hasMany(models.User),
                 Program.hasMany(models.WorkoutDay)
             }
         },

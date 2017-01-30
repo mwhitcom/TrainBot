@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/assets/css/reset.css" type="text/css" />
+        <link rel="stylesheet" href="/assets/css/styles.css" type="text/css" />
+        <script src="/javascript/app.js"></script>
+        <title>TrainBot</title>
+    </head>
+    <body>
+        <h1>HEY!</h1>
+        <form method="POST" action="/workout/new">
+            
+            <div class="workout_program">
+                <select name="program">
+                    <option value="1">Powerlifting</option>
+                    <option value="2">Crossfit</option>
+                    <option value="3">Rowing</option>
+                </select>
+            </div>
+            
+            <div class="workout_day">
+                <label>What day number is this?</label>
+                <input type="number" name="day" placerholder="ex: 1, 2, 3...">
+            </div>
+            
+            <div class="workout_text">
+                <label>What is the workout?</label>
+                <input type="textarea" name="text" placeholder="A. 3x5 Back Squats etc..">
+            
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <h1>END</h1><br>
+        
+    </body>
+</html>
