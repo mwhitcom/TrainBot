@@ -1,0 +1,23 @@
+
+<h1>Update Workout</h1>
+{{#with }}
+<form method="POST" action="/workout/update/:{{id}}?_method=PUT">
+    
+    <div class="workout_program">
+        <label>Program:</label>
+        <input type="text" name="program" value="{{program}}">
+    </div>
+    
+    <div class="workout_day">
+        <label>Day number:</label>
+        <input type="number" name="day" value="{{day}}">
+    </div>
+    
+    <div class="workout_text">
+        <label>Workout:</label>
+        <input type="textarea" name="text" value="{{text}}">
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+{{/with}}
