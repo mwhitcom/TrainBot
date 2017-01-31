@@ -1,0 +1,11 @@
+{{#each programs}}
+    <div>
+        <h1>Program Name: {{this.name}}</h1>
+        <h3>Programmed Days: {{this.days}}</h3>
+        <p>{{this.description}}</p> 
+        <form action='/program/{{this.id}}' method='GET'>
+            <button type="submit" name="{{this.id}}">Take a look at the program?</button>
+        </form>
+    </div>
+    <br>
+{{/each}} 

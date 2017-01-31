@@ -8,19 +8,23 @@ const db = require("../models");
 
 module.exports = (app) => {
 
-    // landing page
+// landing page
     app.get('/', (request, response) => {
         response.render('landing')
     });
 
 
 
-    // Form page for testing DB Entry
+// Form page for NEW WORKOUT
     app.get('/workout', (request, response) => {
-        response.render('../views/test-db-entry');
+        db.Program.findAll({
+        }).then((result) =>{
+            var progList = {
+                programs: result
+            };
+            response.render('../views/new_workout', progList);
+        });
     });
-
-    // Form page to enter a new workout
     app.post('/workout/new', (request, response) => {
         console.log(request.body);
         db.WorkoutDay.create({
@@ -33,9 +37,58 @@ module.exports = (app) => {
         response.redirect('/workout');
     });
 
+// Form Page to UPDATE WORKOUT
+    app.get('/workout/update', (request, response) =>{
+        response.render('update');
+    });
 
 
-    // page for update
+
+// List of all programs
+    app.get('/program', (request, response) => {
+        db.Program.findAll({
+        }).then((result) =>{
+            var progObject = {
+                programs: result
+            };
+            console.log(progObject);
+            response.render('../views/programs', progObject);
+        });
+    });
+    app.post('/program', (request, response) =>{
+        db.Program.create({
+            name: request.body.name,
+            days: request.body.days,
+            description: request.body.description
+        }).then((dbProgram)=>{
+            response.json(dbProgram);
+        });
+    });
+
+
+// List of workouts for individual program
+    app.get('/program/:id', (request, response) => {
+        db.Program.findOne({
+            where: {
+                id: request.params.id
+            },
+            attributes: ['id', 'name'],
+            include: {
+                model: db.WorkoutDay,
+                attributes: ['day', 'text']    
+            }
+        }).then((results) =>{
+            console.log("\n\n"+ results +"\n\n")
+            var progDetails = {
+                details: results
+            };
+            console.log(progDetails);
+            response.render('../views/details', progDetails)
+        })
+    });
+
+
+// Form page for Client Program UPDATE
     app.get('/workout/update', (request, response) => {
         db.User.findAll({   
         }).then((result) =>{
@@ -46,13 +99,11 @@ module.exports = (app) => {
             response.render('test-update-program', userObject);
         });
     });
-    // route for update
     app.put('/workout/update/:id', (request, response) => {
         console.log(request.body);
         db.User.update({
             ProgramId: request.body.program
         },{
-            // purposefully put in the first user since handlebars is not up and running yet
             where: {id: request.params.id}
         }).then(() => {
             response.redirect('/workout/update');
