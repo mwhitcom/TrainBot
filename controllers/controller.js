@@ -20,6 +20,27 @@ module.exports = (app) => {
         });
     });
 
+// Admin page
+    app.get('/admin', (request, response) =>{
+        response.render('adminPanel');
+    })
+
+// Client List
+    app.get('/user', (request, response) => {
+        db.User.findAll({
+            attributes: ['name', 'username', 'email'],
+            include: {
+                model: db.Program,
+                attributes: ['name', 'description']
+            }
+        }).then((result) =>{
+            var clientList = {
+                clients: result
+            };
+            response.render('../views/clientList', clientList);
+        });
+    });
+
 // Form page for NEW WORKOUT
     app.get('/workout', (request, response) => {
         db.Program.findAll({
