@@ -35,6 +35,10 @@
     margin-bottom: 20px;
 }
 
+.landing-body {
+    padding-bottom: 15px;
+}
+
 .about-section {
     width: 100%;
 }
@@ -42,6 +46,7 @@
 /*about section*/
 .about-content {
     padding: 15px;
+    overflow: auto;
 }
 
 .about-photo-block {
