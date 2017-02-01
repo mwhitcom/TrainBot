@@ -6,120 +6,13 @@
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
 	<link rel="stylesheet" href="/assets/css/reset.css" type="text/css" />
-  	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/assets/css/main-styles.css" type="text/css" />
 	<link rel="stylesheet" href="/assets/css/landing.css" type="text/css" />
 	<script src="/javascript/app.js"></script>
 	<title>TrainBot</title>
 </head>
 <body>
-
-<!--Login Modal-->
-	<div class="login-modal">
-		<div class="login-modal-content">
-			<span class="close">&times;</span>
-			<h2 class="login-header">Account Login</h2>
-
-			<form method="POST" action="/users/login">
-				<div class="login__username">
-					<label>Username:</label>
-					<input type="text" class="form-control" name="username" placeholder="Username">
-				</div>
-				<div class="login__password">
-					<label>Password:</label>
-					<input type="password" class="form-control" name="password" placeholder="Password">
-				</div>
-				<button class ="submit-button" type="submit">Login</button>
-			</form>
-
-			<div class="login-error-block">
-				{{#if success_msg}}
-					<div class="alert alert-success">{{success_msg}}</div>
-				{{/if}}
-
-				{{#if error_msg}}
-					<div class="alert alert-danger">{{error_msg}}</div>
-				{{/if}}
-
-				{{#if error}}
-					<div class="alert alert-danger">{{error}}</div>
-				{{/if}}
-			</div>
-		</div>
-	</div>
-
-<!--Register Modal-->
-	<div class="register-modal">
-		<div class="register-modal-content">
-			<span class="close">&times;</span><h2 class="register-header">Sign Up!</h2>
-
-			{{#if errors}}
-				{{#each errors}}
-					<div class="alert alert-danger">{{msg}}</div>
-				{{/each}}
-			{{/if}}
-
-			<form method="POST" action="/users/register">
-				<div class="register__name"> 
-					<label>Name:</label>
-					<input type="text" class="form-control" placeholder="Name" name="name">
-				</div>
-				<div class="register__username">
-					<label>Username:</label>
-					<input type="text" class="form-control" placeholder="Username" name="username">
-				</div>
-				<div class="register__email">
-					<label>Email:</label>
-					<input type="email" class="form-control" placeholder="Email" name="email">
-				</div>
-				<div class="register__password">
-					<label>Password:</label>
-					<input type="password" class="form-control" placeholder="Password" name="password">
-				</div>
-				<div class="register__password--confirm">
-					<label>Confirm Password:</label>
-					<input type="password" class="form-control" placeholder="Confirm Password" name="password2">
-				</div>
-				<button class="submit-button submit-button__register" type="submit">Sign Up</button>
-				<button class="submit-button submit-button__register" type="button">test</button>
-			</form>
-		</div>
-	</div>
-
-<!--Workout pick modal-->
-	<div class="workout-modal">
-		<div class="workout-modal-content">
-			<span class="close">&times;</span>
-			<h2 class="workout-header">Pick Your Workout Program</h2>
-			<form method="POST" action="">
-				<div class="workout-text">
-					<input type="radio" class="form-control" name="workout1" value="Crossfit">
-					<label class="workout-label">Crossfit</label>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin enim sem, ultricies nec lectus in, finibus pharetra urna. Nullam vel dignissim lorem, suscipit convallis ex.</p>
-				</div>
-				<div class="workout-text">
-					<input type="radio" class="form-control" name="workout1" value="Powerlifting">
-					<label class="workout-label">Powerlifting</label>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin enim sem, ultricies nec lectus in, finibus pharetra urna. Nullam vel dignissim lorem, suscipit convallis ex.</p>
-				</div>
-				<div class="workout-text">
-					<input type="radio" class="form-control" name="workout1" value="Row">
-					<label class="workout-label">Row</label>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin enim sem, ultricies nec lectus in, finibus pharetra urna. Nullam vel dignissim lorem, suscipit convallis ex.</p>
-				</div>
-				<button class ="submit-button" type="submit">Submit</button>
-			</form>
-		</div>
-	</div>
-
-<!--Site Header-->
-	<div class="site-header">
-		<ul>
-			<li><img class ="logo" src="/assets/images/trainbot_logo.png" alt="TrainBot"></li>
-			<li class="login-button"><button type="button">Login</button></li>
-			<li class="register-button"><button type="button">Sign Up!</button></li>
-		</ul>
-	</div>
 
 <!--Page render-->
 	{{{body}}}

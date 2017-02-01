@@ -83,34 +83,30 @@
 .social a {
   color: inherit;
   text-decoration: none;
-  margin: 10px 20px 10px 20px;
+  margin: 10px;
   cursor: pointer;
 }
 
-.social i:hover {
-  padding-top: -10px;
-}
-
-.social i#twitter:hover {
+.fa-twitter-square:hover {
   color: #77DDF6;
 }
 
-.social i#facebook:hover {
+.fa-facebook-square:hover {
   color: #0000ff;
 }
 
-.social i#linkedin:hover {
+.fa-linkedin-square:hover {
   color: #0177B5;
 }
 
-.social i#youtube:hover {
+.fa-youtube-square:hover {
   color: #ff0000;
 }
 
-.social i#plus:hover {
+.fa-google-plus-square:hover {
   color: #D43402;
 }
 
-.social i#mail:hover {
+.fa-envelope:hover {
   color: #F7B401;
 }
