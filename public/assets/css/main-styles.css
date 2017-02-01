@@ -55,7 +55,8 @@ p {
 
 /*Login and Register Modals*/
 .login-modal,
-.register-modal {
+.register-modal,
+.workout-modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -68,7 +69,8 @@ p {
 }
 
 .login-modal-content,
-.register-modal-content {
+.register-modal-content,
+.workout-modal-content {
     background-color: #000;
     margin: 15% auto;
     padding: 20px;
@@ -78,7 +80,8 @@ p {
 }
 
 .register-header,
-.login-header {
+.login-header,
+.workout-header {
     border-bottom: 2px solid #fff;
     font-size: 28px;
     padding-bottom: 10px;
@@ -99,7 +102,8 @@ p {
 }
 
 .register-modal-content div,
-.login-modal-content div {
+.login-modal-content div,
+.workout-modal-content div {
     margin-top: 10px;
 }
 
@@ -109,7 +113,8 @@ p {
 }
 
 .register-modal-content input,
-.login-modal-content input {
+.login-modal-content input,
+.workout-modal-content input {
     color: #888;
     background-color: #000;
     border-style: none;
@@ -125,6 +130,22 @@ p {
     outline: none;
     border-bottom: 1px solid #fff;
 }
+
+.workout-label {
+    font-size: 25px;
+    color: #42C79A;
+}
+
+.workout-text {
+    border-bottom: 1px solid #fff;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.workout-text p {
+    padding-left: 30px;
+}
+
 
 /*Footer styles*/
 footer {
