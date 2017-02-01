@@ -82,7 +82,7 @@ module.exports = (app) => {
         });
     });
 
-    app.post('/program', (request, response) =>{
+    app.post('admin/programs', (request, response) =>{
         db.Program.create({
             name: request.body.name,
             days: request.body.days,
@@ -110,7 +110,7 @@ module.exports = (app) => {
                 details: results
             };
             console.log(progDetails);
-            response.render('../views/details', progDetails)
+            response.render('details', progDetails)
         })
     });
 
