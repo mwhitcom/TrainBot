@@ -4,9 +4,24 @@
     box-sizing: border-box; 
 }
 
-h1, h2, h3, h4, button, ul, li, p, form, input, a {
+h1, h2, h3, h4, button, ul, li, p, form, input, a, textarea {
     font-family: 'Ubuntu', sans-serif;
 }
+
+html{
+  position: relative; 
+  min-height: 100%;
+}
+
+html,body{
+  margin: 0;
+  padding: 0;
+}
+
+.content-body{
+  margin-bottom: 50px;
+} 
+
 /* This css allows to maintain line breaks when pulling workouts from the db */
 p {
     white-space: pre-wrap;
@@ -24,13 +39,11 @@ p {
     display: inline-block;
 }
 
-.login-button,
-.register-button {
+.header-button {
     float: right;
 }
 
-.login-button button,
-.register-button button,
+.header-button button,
 .submit-button {
     box-shadow: none;
     border-style: none;
@@ -41,10 +54,8 @@ p {
     border-radius: 2px;
 }
 
-.login-button button:hover,
-.register-button button:hover,
-.login-button button:focus,
-.register-button button:focus,
+.header-button button:hover,
+.header-button button:focus,
 .submit-button:hover,
 .submit-button:focus {
     background-color: #42C79A;
@@ -62,7 +73,7 @@ p {
 .workout-modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 20;
     left: 0;
     top: 0;
     width: 100%;
@@ -95,6 +106,7 @@ p {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    margin-right: 15px;
 }
 
 .close:hover,
@@ -164,6 +176,9 @@ p {
     display: none;
     width: 25%;
     height: 400px;
+    border-right: 2px solid #42C79A;
+    border-bottom: 2px solid #42C79A;
+    z-index: 1;
 }
 
 .menu li {
@@ -181,17 +196,15 @@ p {
 .menu li:hover {
     color: #000;
     background-color: #fff;
-    border: 2px solid #000;
-}
-
-.menu-logo {
-    padding-left: 30px;
 }
 
 
 /*Footer styles*/
 footer {
-    clear: both;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     width: 100%;
     background-color: #000;
     height: 50px;
