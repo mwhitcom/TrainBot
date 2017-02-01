@@ -13,4 +13,11 @@ $(document).on("click", ".register-button button", () => {
 $(document).on("click", ".close", () => {
     $(".register-modal").hide();
     $(".login-modal").hide();
+    $(".workout-modal").hide();
+});
+
+// Workout pick modal
+$(document).on("click", ".submit-button__register", () => {
+    $(".register-modal").hide();
+    $(".workout-modal").show();
 });
