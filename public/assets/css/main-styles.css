@@ -4,7 +4,7 @@
     box-sizing: border-box; 
 }
 
-h1, h2, h3, h4, button, ul, li, p, form, input {
+h1, h2, h3, h4, button, ul, li, p, form, input, a {
     font-family: 'Ubuntu', sans-serif;
 }
 /* This css allows to maintain line breaks when pulling workouts from the db */
@@ -29,7 +29,8 @@ p {
     float: right;
 }
 
-.site-header button,
+.login-button button,
+.register-button button,
 .submit-button {
     box-shadow: none;
     border-style: none;
@@ -40,8 +41,10 @@ p {
     border-radius: 2px;
 }
 
-.site-header button:hover,
-.site-header button:focus,
+.login-button button:hover,
+.register-button button:hover,
+.login-button button:focus,
+.register-button button:focus,
 .submit-button:hover,
 .submit-button:focus {
     background-color: #42C79A;
@@ -143,6 +146,45 @@ p {
 }
 
 .workout-text p {
+    padding-left: 30px;
+}
+
+
+/*Admin header*/
+.hamburger {
+    float: left;
+    font-size: 30px;
+    margin: 20px 0 0 15px;
+}
+
+/*Admin menu*/
+.menu {
+    position: absolute;
+    background-color: #000;
+    display: none;
+    width: 25%;
+    height: 400px;
+}
+
+.menu li {
+    width: 100%;
+    padding: 25px;
+    text-align: center;
+}
+
+.menu a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 25px;
+}
+
+.menu li:hover {
+    color: #000;
+    background-color: #fff;
+    border: 2px solid #000;
+}
+
+.menu-logo {
     padding-left: 30px;
 }
 

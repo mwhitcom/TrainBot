@@ -1,3 +1,103 @@
+<!--Login Modal-->
+<div class="login-modal">
+    <div class="login-modal-content">
+        <span class="close">&times;</span>
+        <h2 class="login-header">Account Login</h2>
+
+        <form method="POST" action="/users/login">
+            <div class="login__username">
+                <label>Username:</label>
+                <input type="text" class="form-control" name="username" placeholder="Username">
+            </div>
+            <div class="login__password">
+                <label>Password:</label>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+            <button class ="submit-button" type="submit">Login</button>
+        </form>
+
+        <div class="login-error-block">
+            {{#if success_msg}}
+                <div class="alert alert-success">{{success_msg}}</div>
+            {{/if}}
+
+            {{#if error_msg}}
+                <div class="alert alert-danger">{{error_msg}}</div>
+            {{/if}}
+
+            {{#if error}}
+                <div class="alert alert-danger">{{error}}</div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<!--Register Modal-->
+<div class="register-modal">
+    <div class="register-modal-content">
+        <span class="close">&times;</span><h2 class="register-header">Sign Up!</h2>
+
+        {{#if errors}}
+            {{#each errors}}
+                <div class="alert alert-danger">{{msg}}</div>
+            {{/each}}
+        {{/if}}
+
+        <form method="POST" action="/users/register">
+            <div class="register__name"> 
+                <label>Name:</label>
+                <input type="text" class="form-control" placeholder="Name" name="name">
+            </div>
+            <div class="register__username">
+                <label>Username:</label>
+                <input type="text" class="form-control" placeholder="Username" name="username">
+            </div>
+            <div class="register__email">
+                <label>Email:</label>
+                <input type="email" class="form-control" placeholder="Email" name="email">
+            </div>
+            <div class="register__password">
+                <label>Password:</label>
+                <input type="password" class="form-control" placeholder="Password" name="password">
+            </div>
+            <div class="register__password--confirm">
+                <label>Confirm Password:</label>
+                <input type="password" class="form-control" placeholder="Confirm Password" name="password2">
+            </div>
+            <button class="submit-button submit-button__register" type="submit">Sign Up</button>
+            <button class="submit-button submit-button__register" type="button">test</button>
+        </form>
+    </div>
+</div>
+
+<!--Workout pick modal-->
+<div class="workout-modal">
+    <div class="workout-modal-content">
+        <span class="close">&times;</span>
+        <h2 class="workout-header">Pick Your Workout Program</h2>
+        <form name="workouts" method="POST" action="">
+            {{#each programs}}
+                <div class="workout-text">
+                    <input type="radio" class="form-control" name="workouts" value="{{this.name}}">
+                    <label class="workout-label">{{this.name}}</label>
+                    <p>{{this.description}}</p>
+                </div>
+            {{/each}}
+            <button class ="submit-button" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<!--Site Header-->
+<div class="site-header">
+    <ul>
+        <li><img class ="logo" src="/assets/images/trainbot_logo.png" alt="TrainBot"></li>
+        <li class="login-button"><button type="button">Login</button></li>
+        <li class="register-button"><button type="button">Sign Up!</button></li>
+    </ul>
+</div>
+
+<!--landing body-->
 <div class="landing-body">
     <div class="banner-block">
         </div>
@@ -11,12 +111,12 @@
         <div class="about-content">
             <div class="about-photo-block">
                 <div class="social">
-                    <a href=#><i id="twitter" class="icon-twitter"></i></a>
-                    <a href=#><i id="facebook" class="icon-facebook"></i></a>
-                    <a href=#><i id="youtube" class="icon-youtube"></i></a>
-                    <a href=#><i id="linkedin" class="icon-linkedin-sign"></i></a>
-                    <a href=#><i id="plus" class="icon-google-plus-sign"></i></a>
-                    <a href=#><i id="mail" class="icon-envelope"></i></a>
+                    <a href=#><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                    <a href=#><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                    <a href=#><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
+                    <a href=#><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                    <a href=#><i class="fa fa-google-plus-square" aria-hidden="true"></i></a>
+                    <a href=#><i class="fa fa-envelope" aria-hidden="true"></i></a>
                 </div>
                 <img class ="trainer-photo" src="/assets/images/trainer-photo.jpg" alt="robot trainer">
             </div>
