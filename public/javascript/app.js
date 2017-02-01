@@ -1,4 +1,3 @@
-
 // show login modal on button click
 $(document).on("click", ".login-button button", () => {
     $(".login-modal").show();
