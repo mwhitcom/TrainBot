@@ -10,7 +10,14 @@ module.exports = (app) => {
 
 // landing page
     app.get('/', (request, response) => {
-        response.render('landing')
+        db.Program.findAll({
+        }).then((result) =>{
+            var progObject = {
+                programs: result
+            };
+            console.log(progObject);
+            response.render('landing', progObject);
+        });
     });
 
 // Admin page
@@ -33,8 +40,6 @@ module.exports = (app) => {
             response.render('../views/clientList', clientList);
         });
     });
-
-
 
 // Form page for NEW WORKOUT
     app.get('/workout', (request, response) => {
@@ -66,16 +71,17 @@ module.exports = (app) => {
 
 
 // List of all programs
-    app.get('/program', (request, response) => {
+    app.get('/admin/programs', (request, response) => {
         db.Program.findAll({
         }).then((result) =>{
             var progObject = {
                 programs: result
             };
             console.log(progObject);
-            response.render('../views/programs', progObject);
+            response.render('programs', progObject);
         });
     });
+
     app.post('/program', (request, response) =>{
         db.Program.create({
             name: request.body.name,
