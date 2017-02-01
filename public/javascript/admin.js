@@ -6,26 +6,15 @@ $(document).on('click', '#newsfeed', () =>{
 $(document).on('click', '#users', () =>{
     
 });
+$(document).ready(function(){
+    $('.program_section').on('click','.programChoice' , () =>{
+        let value = $(this).attr('value');
+        // let value = $(this);
+        // let value = $(this).val();
+        // console.log("This should be rowing: " +  value);
+        console.log(value);
+        // console.log($("button").val());
 
-$(document).on('click', '.adminChoice', () =>{
-    console.log( $(this))
-    // let value = $(this).val().trim(); 
-    // getData(value);
+    
+    });
 });
-
-
-function getData(type){
-    var queryUrl;
-    switch(type) {
-        case 'users':
-            queryUrl = '/user';
-            break;
-        case 'programs':
-            queryUrl = '/program';
-            break;
-    };
-    $.get(queryUrl, function(data){
-        console.log( data.username || data.description);
-    })
-
-};
