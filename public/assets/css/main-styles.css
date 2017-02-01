@@ -7,6 +7,10 @@
 h1, h2, h3, h4, button, ul, li, p, form, input {
     font-family: 'Ubuntu', sans-serif;
 }
+/* This css allows to maintain line breaks when pulling workouts from the db */
+p {
+    white-space: pre-wrap;
+}
 
 /*Site Header*/
 .site-header {
