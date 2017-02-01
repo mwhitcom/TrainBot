@@ -7,6 +7,21 @@
 h1, h2, h3, h4, button, ul, li, p, form, input, a {
     font-family: 'Ubuntu', sans-serif;
 }
+
+html{
+  position: relative; 
+  min-height: 100%;
+}
+
+html,body{
+  margin: 0;
+  padding: 0;
+}
+
+.content-body{
+  margin-bottom: 50px;
+} 
+
 /* This css allows to maintain line breaks when pulling workouts from the db */
 p {
     white-space: pre-wrap;
@@ -191,7 +206,10 @@ p {
 
 /*Footer styles*/
 footer {
-    clear: both;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     width: 100%;
     background-color: #000;
     height: 50px;
