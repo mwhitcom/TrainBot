@@ -23,7 +23,7 @@ module.exports = (app) => {
 // User page
     app.get('/user/workout', (request, response) =>{
         response.render('user-workout');
-    })
+    });
 
     app.get('/user/profile', (request, response) =>{
         response.render('user-profile');

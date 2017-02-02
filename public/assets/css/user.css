@@ -1,3 +1,4 @@
+/*Workout Page*/
 .workout-flow {
     width: 100%;
     min-height: calc(100vh-120px);
@@ -120,4 +121,110 @@
     background: rgba(60, 180, 212, 0.5);
     color: #fff;
     outline: none;
+}
+
+/*Profile page*/
+.profile-content {
+    width: 100%;
+    height: calc(100vh - 120px);
+    background-color: black;
+}
+
+.profile-banner {
+    width: 100%;
+    height: calc(100vh - 75px);
+}
+
+.profile-panel {
+    position: absolute;
+    width: 90%;
+    height: 70%;
+    top: 15%;
+    left: 5%;
+    background-color: rgba(229,229,229, 0.85);
+    color: #000;
+    box-shadow: 3px 3px #3CB4D4;
+    border: 1px solid #aaaaaa;
+}
+
+.profile-panel-header,
+.profile-info-title {
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    float: left;
+    font-size: 25px;
+    padding: 10px;
+    border-right: 3px solid #000;
+}
+
+.profile-progress-block {
+    border-top: 3px solid #000;
+    clear: both;
+    margin-top:10px;
+    padding: 15px;
+    font-size: 20px;
+}
+
+.current-program-title {
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.workout-button {
+    margin: 0;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.workout-button button{
+    margin: 0;
+}
+
+.profile-info-title {
+    margin-top: 70px;
+}
+
+.info-list {
+    clear: both;
+    border-top: 3px solid #000;
+}
+
+.info-list li {
+    padding: 20px 0 0 20px;
+}
+
+.info-list span {
+    padding-left: 10px;
+}
+
+.edit-button {
+    float: left;
+    margin: 0;
+}
+
+.edit-button button {
+    margin: 0;
+}
+
+/*progress bar*/
+.progress-bar { 
+    height: 30px;
+    float: left;
+    clear: both;
+    width: 100%;
+    background: #000;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.progress-bar span {
+    text-align: center;
+    font-size: 16px;
+    padding-top: 2px;
+    width: 25%;
+    display: inline-block;
+    height: 20px;
+    border-radius: 8px;
+    background-color: #2bc253;
+    overflow: hidden;
 }
