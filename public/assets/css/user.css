@@ -1,0 +1,123 @@
+.workout-flow {
+    width: 100%;
+    min-height: calc(100vh-120px);
+    background-color: #000;
+}
+
+.workout-banner {
+    width: 100%;
+    min-height: calc(100vh - 120px);
+}
+
+.workout-card {
+    position: absolute;
+    width: 60%;
+    height: 50%;
+    top: 20%;
+    left: 20%;
+    background-color: rgba(229,229,229, 0.85);
+    color: #000;
+    box-shadow: 3px 3px #3CB4D4;
+    border: 1px solid #aaaaaa;
+}
+
+.complete-button button{
+    background-color: #000;
+    color: #fff;
+    margin: 0;
+}
+
+.card-day {
+    font-size: 40px;
+    float: left;
+    padding: 8px;
+    border-right: 3px solid #000;
+    border-bottom: 3px solid #000;
+}
+
+.card-program {
+    float: left;
+    font-size: 40px;
+    padding: 8px;
+    border-bottom: 3px solid #000;
+}
+
+.card-text {
+    float: left;
+    clear: both;
+    padding: 10px;
+    white-space: pre-line;
+}
+
+.card-feedback {
+    clear: both;
+    width: 100%;
+    padding: 10px;
+    border-top: 3px solid #000;
+    height: 80px;
+}
+
+.workout-content {
+    height: calc(100% - 80px);
+    overflow: scroll;
+}
+
+.feedback {
+    float: left;
+    width: 60%;
+    border-style: none;
+    font-size: 16px;
+    background-color: rgba(229,229,229, 0.1);
+    resize: none;
+    border: 1px solid #aaaaaa;
+}
+
+.feedback:hover,
+.feedback:focus {
+    outline: none;
+    background: rgba(66, 199, 154, 0.5);
+}
+
+.complete-button {
+    float: right;
+    margin-top: 10px;
+}
+
+.feedback-label {
+    font-size: 20px;
+}
+
+.previous-day,
+.next-day {
+    position: absolute;
+    width: 29.5%;
+    height: 5%;
+    top: 14%;
+}
+
+.next-day {
+    right: 20%;
+}
+
+.previous-day {
+    left: 20%;
+}
+
+.previous-day-button,
+.next-day-button {
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+    border-style: none;
+    background-color: rgba(229,229,229, 0.85);
+    font-size: 20px;
+}
+
+.previous-day-button:hover,
+.next-day-button:hover,
+.previous-day-button:focus,
+.next-day-button:focus {
+    background: rgba(60, 180, 212, 0.5);
+    color: #fff;
+    outline: none;
+}

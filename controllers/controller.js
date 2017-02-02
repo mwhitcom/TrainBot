@@ -1,18 +1,156 @@
 const express = require('express');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/user.js')
+// const User = require('../models/user.js')
 const app = express();
 const db = require("../models");
 const bcrypt = require('bcryptjs');
+const path = require("path");
 
 module.exports = (app) => {
 
-    // landing page
+// landing page
     app.get('/', (request, response) => {
-        response.render('landing')
+        db.Program.findAll({
+        }).then((result) =>{
+            var progObject = {
+                programs: result
+            };
+            // console.log(progObject);
+            response.render('landing', progObject);
+        });
     });
-    
+
+// User page
+    app.get('/user/workout', isLoggedIn, (request, response) =>{
+        response.render('user-workout');
+    })
+
+    app.get('/user/profile', (request, response) =>{
+        response.render('user-profile');
+    })
+
+// Admin page
+    app.get('/admin', (request, response) =>{
+        response.render('adminPanel');
+    })
+
+// Client List
+    app.get('/user', (request, response) => {
+        db.User.findAll({
+            attributes: ['name', 'username', 'email'],
+            include: {
+                model: db.Program,
+                attributes: ['name', 'description']
+            }
+        }).then((result) =>{
+            var clientList = {
+                clients: result
+            };
+            response.render('../views/clientList', clientList);
+        });
+    });
+
+// Form page for NEW WORKOUT
+    app.get('/workout', (request, response) => {
+        db.Program.findAll({
+        }).then((result) =>{
+            var progList = {
+                programs: result
+            };
+            response.render('../views/new_workout', progList);
+        });
+    });
+    app.post('/workout/new', (request, response) => {
+        console.log(request.body);
+        db.WorkoutDay.create({
+            day: request.body.day,
+            text: request.body.text,
+            ProgramId: request.body.program
+        }).then((dbWorkOut) => {
+            console.log(dbWorkOut);
+        });
+        response.redirect('/workout');
+    });
+
+// Form Page to UPDATE WORKOUT
+    app.get('/workout/update', (request, response) =>{
+        response.render('update');
+    });
+
+
+
+// List of all programs
+    app.get('/admin/programs', (request, response) => {
+        db.Program.findAll({
+        }).then((result) =>{
+            var progObject = {
+                programs: result
+            };
+            console.log(progObject);
+            response.render('programs', progObject);
+        });
+    });
+
+    app.post('/program', (request, response) =>{
+        db.Program.create({
+            name: request.body.name,
+            days: request.body.days,
+            description: request.body.description
+        }).then((dbProgram)=>{
+            response.json(dbProgram);
+        });
+    });
+
+
+// List of workouts for individual program
+    app.get('/program/:id', (request, response) => {
+        db.Program.findOne({
+            where: {
+                id: request.params.id
+            },
+            attributes: ['id', 'name'],
+            include: {
+                model: db.WorkoutDay,
+                attributes: ['day', 'text']    
+            }
+        }).then((results) =>{
+            console.log("\n\n"+ results +"\n\n")
+            var progDetails = {
+                details: results
+            };
+            console.log(progDetails);
+            response.render('../views/details', progDetails)
+        })
+    });
+
+
+// Form page for Client Program UPDATE
+    app.get('/workout/update', (request, response) => {
+        db.User.findAll({   
+        }).then((result) =>{
+            var userObject = {
+                user: result
+            };
+            console.log(userObject);
+            response.render('test-update-program', userObject);
+        });
+    });
+    app.put('/workout/update/:id', (request, response) => {
+        console.log(request.body);
+        db.User.update({
+            ProgramId: request.body.program
+        },{
+            where: {id: request.params.id}
+        }).then(() => {
+            response.redirect('/workout/update');
+        });  
+    });
+
+
+
+
+    // User Registration routes    
     app.post('/users/register', (request, response) => {
          let name = request.body.username; 
          let username = request.body.username;
@@ -50,31 +188,38 @@ module.exports = (app) => {
 
 
 
-      passport.use('local', new LocalStrategy(
+      passport.use(new LocalStrategy.Strategy(
         (username, password, done) => {
         db.User.findOne({ where: { 'username': username }}).then((user) => {
-            
+            console.log(user.get({
+                    plain: true
+                }))
             let hashedPW = bcrypt.hashSync(password, user.salt) 
-            console.log(hashedPW , user.password);
             if(user.password === hashedPW){
-              return console.log("YES!"), done(user);
+              return  done(null, user);
             }
             return done(null, false , console.log('incorrect password'))
           })
         }
       ));
 
-
+      function isLoggedIn(request, response, next){
+          if(request.isAuthenticated()){
+              return next();
+          }
+          response.redirect('/');
+      }
       
         // Serialize Sessions
       passport.serializeUser((user, done) => {
-        done(user.username);
+          console.log("-user object being serialized ---->" + user)
+        done(null, user);
       });
 
-      //Deserialize Sessions
+    //   Deserialize Sessions
       passport.deserializeUser((user, done) => {
-        db.User.findOne({where: {'username': username}}).then( (user) => {
-          done(user);
+        db.User.findOne({where: {'username': user.username}}).then( (user) => {
+          done(null, user);
         }).catch((err) => {
           done(err, null)
         });
@@ -82,12 +227,8 @@ module.exports = (app) => {
 
 
 
-        app.post('/users/login', passport.authenticate('local',{
-            failureRedirect: '/login',
-            successRediderct: '/user'
-        }));
-
-
-
-
+        app.post('/login', passport.authenticate('local', 
+          {  successRedirect: '/',
+            failureRedirect: '/signup'}
+        ));
 };

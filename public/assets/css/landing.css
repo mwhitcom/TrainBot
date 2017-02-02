@@ -1,0 +1,118 @@
+.landing-body {
+    width: 100%;
+}
+
+
+/*inspire block*/
+.banner-block {
+    overflow: auto;
+}
+
+.banner-image {
+    height: calc(100vh - 70px);
+    width: 100%;
+}
+
+.inspire-block {
+    position: absolute;
+    color: #42C79A;
+    text-shadow: 1px 1px #000;
+    font-size: 30px;
+    text-align: center;
+    width: 100%;
+    padding-top: 20%;
+    font-style: bold;
+}
+
+.inspire-text,
+.inspire-quote {
+    font-family: 'Cinzel', serif;
+}
+
+.inspire-quote {
+    font-style: italic;
+    font-weight: 1000;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.landing-body {
+    padding-bottom: 15px;
+}
+
+.about-section {
+    width: 100%;
+}
+
+/*about section*/
+.about-content {
+    padding: 15px;
+    overflow: auto;
+}
+
+.about-photo-block {
+    width: 50%;
+    float: left;
+}
+
+.trainer-photo {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.about-text {
+    width: calc(50% - 15px);
+    height: 100%;
+    float: left;
+    margin-left: 15px;
+    font-size: 20px;
+}
+
+.about-title {
+    padding-bottom: 5px;
+    border-bottom: 2px solid #000;
+}
+
+.about-text li {
+    padding: 20px 0 0 15px;
+}
+
+/*social bar*/
+.social {
+  text-align: center;
+  font-size: 2.5em;
+  color: #555;
+  overflow: hidden;
+  padding-bottom: 10px;
+}
+
+.social a {
+  color: inherit;
+  text-decoration: none;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.fa-twitter-square:hover {
+  color: #77DDF6;
+}
+
+.fa-facebook-square:hover {
+  color: #0000ff;
+}
+
+.fa-linkedin-square:hover {
+  color: #0177B5;
+}
+
+.fa-youtube-square:hover {
+  color: #ff0000;
+}
+
+.fa-google-plus-square:hover {
+  color: #D43402;
+}
+
+.fa-envelope:hover {
+  color: #F7B401;
+}

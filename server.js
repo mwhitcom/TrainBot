@@ -6,8 +6,9 @@ const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const expressValidator = require('express-validator');
 const exphbs = require("express-handlebars");
-const passport = require('passport');
+const cookieParser = require('cookie-parser')
 const session = require('express-session');
+const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 // Requiring our models for syncing
 const db = require("./models");
@@ -18,10 +19,6 @@ const db = require("./models");
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-
-
-app.use(passport.initialize()); //initializes the session
-app.use(passport.session()); //tells passport to be in charge of the session
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.json());
@@ -36,15 +33,17 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 // Static directory
 app.use(express.static("./public"));
-
+app.use(cookieParser());
 // express session setting // 
 app.use(session({
   secret: "user secret",
-  cookie: {_expires: 10000000},
-  resave: false,
+  cookie: {_expires: 88888810000000},
+  resave: true,
   saveUninitialized: true
 }));
 
+app.use(passport.initialize()); //initializes the session
+app.use(passport.session()); //tells passport to be in charge of the session
 
 
 
