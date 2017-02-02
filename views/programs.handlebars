@@ -16,21 +16,37 @@
     <ul>
         <li class="hamburger"><i class="fa fa-bars" aria-hidden="true"></i></li>
         <li><img class ="logo" src="/assets/images/trainbot_logo.png" alt="TrainBot"></li>
+        <li class="header-button"><button type="button">Logout</button></li>
     </ul>
 </div>
 
 <!--programs section-->
-<div class='program_section'>
-    {{#each programs}}
-            <h1>Program Name: {{this.name}}</h1>
-            <h3>Programmed Days: {{this.days}}</h3>
-            <p>{{this.description}}</p> 
-            <button type='submit' class='programChoice' value='{{this.name}}' id='{{this.id}}'>Take a look at the program?</button>
-    {{/each}} 
+<div class="program-block">
+    <div class='program_section'>
+        {{#each programs}}
+            <div class="program-div">
+                <h1>Program Name: <span>{{this.name}}</span></h1>
+                <div class="program-info">
+                    <h3>Programmed Length: {{this.days}}</h3>
+                    <p>Description {{this.description}}</p> 
+                    <div class="header-button view-program-button"><button type='submit' class='programChoice' value='{{this.name}}' id='{{this.id}}'>Take a look at the program?</button></div>
+                </div>
+            </div>
+        {{/each}} 
+    </div>
+    <img class="program-banner" src="/assets/images/banner-cement.jpg" alt="cement">
 </div>
 
  <!--workout section-->
-<div class="workouts"></div>
+<div class="workouts">
+    <div class="workouts-header">
+        <ul>
+            <li class="workouts-header-text">Program Contents</li>
+            <li class="header-button back-button"><button type="button">Back</button></li>
+        </ul>
+    </div>
+    <div class="workouts-content-block"></div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/javascript/app.js"></script>

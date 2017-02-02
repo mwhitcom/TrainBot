@@ -1,8 +1,8 @@
-
-$(document).ready(function(){
-    $('.workouts').hide();
+$(".back-button").on("click", () => {
+    $(".program_section").show();
+    $(".workouts").hide();
+    $(".workouts-content-block").empty();
 });
-
 
 $('.program_section').on('click','.programChoice' , (e) =>{
     e.preventDefault();
@@ -11,8 +11,6 @@ $('.program_section').on('click','.programChoice' , (e) =>{
     // console.log( program );
     getWorkout(id, program);
 });
-
-
 
 $('.workouts').on('click', '.singleWorkout', (e) =>{
     e.preventDefault();
@@ -41,23 +39,25 @@ function getWorkout(id, program){
 
             let newDiv = $('<div>');
             let h3 = $('<h3>');
+            let p = $('<p>');
 
-            h3.html('Day: ' + day);
-            newDiv.html( parsedWords );
+            h3.html(`Day: ${day}`);
+            p.html(parsedWords);
             newDiv.attr('id', allWorkouts[iter].day );
             newDiv.addClass('singleWorkout');
 
             $(newDiv).prepend(h3);
+            $(newDiv).append(p);
             $(newDiv).append( addUpdateButton(day, program) );
-            $('.workouts').append(newDiv);  
+            $('.workouts-content-block').append(newDiv);  
         }
-
     });
 };
 // var addUpdateButton = function(){};
 
 function addUpdateButton(day, program){
     var newBtn = $('<button>');
+    var btnDiv = $('<div>');
     newBtn.attr({
         type: 'submit',
     });
@@ -66,7 +66,9 @@ function addUpdateButton(day, program){
         progId: program
     });
     newBtn.text("Update Workout?");
-    return newBtn;
+    $(btnDiv).append(newBtn)
+    btnDiv.addClass("header-button update-button");
+    return btnDiv;
 };
 
 

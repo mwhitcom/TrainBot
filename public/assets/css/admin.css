@@ -1,0 +1,108 @@
+.workouts {
+    display: none;
+}
+
+.program-block {
+    width: 100%;
+    min-height: calc(100vh-120px);
+    background-color: #000;
+}
+
+.program-banner {
+    width: 100%;
+    min-height: calc(100vh - 120px);
+}
+
+.program_section,
+.workouts {
+    position: absolute;
+    width: 90%;
+    height: 70%;
+    top: 15%;
+    left: 5%;
+    background-color: rgba(229,229,229, 0.85);
+    color: #000;
+    box-shadow: 3px 3px #3CB4D4;
+    border: 1px solid #aaaaaa;
+    overflow: scroll;
+}
+
+.program-div h1 {
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    float: left;
+    padding: 10px;
+    font-size: 25px;
+    border-right: 3px solid #000;
+}
+
+.program-div h1 span {
+    color: #42C79A;
+}
+
+.program-info {
+    clear: both;
+    border-top: 3px solid #000;
+    padding: 10px 10px 50px 10px;
+}
+
+.program-info h3,
+.program-info p {
+    padding-bottom: 10px;
+}
+
+.view-program-button {
+    float: left;
+    margin: 0;
+}
+
+.view-program-button button {
+    margin: 0;
+}
+
+.workouts-header-text{
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    float: left;
+    padding: 10px;
+    font-size: 25px;
+    border-right: 3px solid #000;
+}
+
+.back-button button {
+    margin: 7px 7px 0 0;
+}
+
+.workouts-header {
+    width: 100%;
+    float: left;
+    border-bottom: 3px solid #000;
+}
+
+.workouts-content-block {
+    width: 100%;
+    clear: both;
+    float: left;
+}
+
+.singleWorkout {
+    width: 100%;
+    clear: both;
+    float: left;
+    padding: 5px 10px 10px 10px;
+    border-top: 1px solid #000;
+}
+
+.singleWorkout h3 {
+    padding-bottom: 5px;
+}
+
+.update-button {
+    float: right;
+}
+
+.update-button button {
+    margin: 0;
+    float: right;
+}
+
