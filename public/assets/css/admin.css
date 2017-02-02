@@ -5,7 +5,8 @@
 }
 
 .program-block,
-.list-block {
+.list-block,
+.create-block {
     width: 100%;
     min-height: calc(100vh-120px);
     background-color: #000;
@@ -18,7 +19,8 @@
 
 .program_section,
 .workouts,
-.list-section {
+.list-section,
+.create-section {
     position: absolute;
     width: 90%;
     height: 70%;
@@ -65,7 +67,8 @@
     margin: 0;
 }
 
-.workouts-header-text{
+.workouts-header-text,
+.create-content-title{
     background: rgba(0, 0, 0, 0.3);
     color: #fff;
     float: left;
@@ -114,7 +117,8 @@
 
 /*CLient List*/
 
-.list-content {
+.list-content,
+.create-content {
     clear: both;
     width: 100%;
     float: left;
@@ -136,4 +140,11 @@
     width: 100%;
     clear: both;
     margin-top: 10px;
+}
+
+
+/*create page*/
+
+.create-days-block {
+    display: none;
 }
