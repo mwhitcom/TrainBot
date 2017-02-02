@@ -29,11 +29,6 @@ module.exports = (app) => {
         response.render('user-profile');
     })
 
-// Admin page
-    app.get('/admin', (request, response) =>{
-        response.render('adminPanel');
-    })
-
 // Client List
     app.get('/admin/clients', (request, response) => {
         db.User.findAll({
@@ -60,6 +55,7 @@ module.exports = (app) => {
             response.render('newWorkout', progList);
         });
     });
+    
     app.post('/admin/workout/new', (request, response) => {
         console.log(request.body);
         db.WorkoutDay.create({
