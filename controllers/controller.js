@@ -22,7 +22,19 @@ module.exports = (app) => {
 
 // User page
     app.get('/user/workout', (request, response) =>{
-        response.render('user-workout');
+        db.WorkoutDay.findOne({
+            where: {
+                day: 2, // SessionStorageUserCurrentDay
+                ProgramId: 1 // SessionStorageUserProgramId
+            }
+        }).then((results) =>{
+            var workoutObject = {
+                singleWorkout: results
+            };
+            console.log(results);
+            console.log(workoutObject);
+            response.render('user-workout');
+        });
     });
 
     app.get('/user/profile', (request, response) =>{
