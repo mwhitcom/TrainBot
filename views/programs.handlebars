@@ -22,47 +22,16 @@
 <!--programs section-->
 <div class='program_section'>
     {{#each programs}}
-        {{!--<div >--}}
             <h1>Program Name: {{this.name}}</h1>
             <h3>Programmed Days: {{this.days}}</h3>
             <p>{{this.description}}</p> 
-            {{!--<form action='/program/{{this.id}}' method='GET'>--}}
-            <button type='submit' data-id='{{this.id}}' class='programChoice' value='{{this.name}}' id='{{this.id}}'>Take a look at the program?</button>
-            {{!--</form>--}}
-        {{!--</div>--}}
-        <br>
+            <button type='submit' class='programChoice' value='{{this.name}}' id='{{this.id}}'>Take a look at the program?</button>
     {{/each}} 
 </div>
 
+ <!--workout section-->
+<div class="workouts"></div>
 
-{{!--<div>
-
-    <div class='program_sections'>
-        <h1>Program Name: CROSSFIT!!!!!</h1>
-        <h3>Programmed Days: 5</h3>
-        <p>PARAGRAPH</p> 
-        <button type="submit" class='programChoice' value="ryan">Take a look at the program?</button>
-
-    </div>
-    <br> 
-</div>--}}
-
-
-{{!-- Program Choosen --}}
-
-{{#each programNAME}}
-    <div>
-        <h1>Day {{day}}</h1>
-        <p>{{text}}</p>
-    </div>
-    
-    {{!--<form action="/workout/new?_method=PUT" method="POST">
-        <button>Update</button>
-    </form>--}}
-
-    <br>
-{{/each}}
-
-{{!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>--}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/javascript/app.js"></script>
 <script src="/javascript/admin.js"></script>

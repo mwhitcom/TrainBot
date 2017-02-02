@@ -103,7 +103,26 @@ module.exports = (app) => {
 
 
 // List of workouts for individual program
-    app.get('/program/:id', (request, response) => {
+    // app.get('/admin/programs/:id', (request, response) => {
+    //     db.Program.findOne({
+    //         where: {
+    //             id: request.params.id
+    //         },
+    //         attributes: ['id', 'name'],
+    //         include: {
+    //             model: db.WorkoutDay,
+    //             attributes: ['day', 'text']    
+    //         }
+    //     }).then((results) =>{
+    //         var progDetails = {
+    //             details: results
+    //         };
+    //         console.log(progDetails);
+    //         response.render('details', progDetails)
+    //     })
+    // });
+
+app.get('/admin/programs/:id', (request, response) => {
         db.Program.findOne({
             where: {
                 id: request.params.id
@@ -114,15 +133,10 @@ module.exports = (app) => {
                 attributes: ['day', 'text']    
             }
         }).then((results) =>{
-            console.log("\n\n"+ results +"\n\n")
-            var progDetails = {
-                details: results
-            };
-            console.log(progDetails);
-            response.render('details', progDetails)
+ 
+            response.json(results);
         })
     });
-
 
 // Form page for Client Program UPDATE
     app.get('/workout/update', (request, response) => {
