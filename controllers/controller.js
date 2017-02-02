@@ -41,11 +41,6 @@ module.exports = (app) => {
         response.render('user-profile');
     })
 
-// Admin page
-    app.get('/admin', (request, response) =>{
-        response.render('adminPanel');
-    })
-
 // Client List
     app.get('/admin/clients', (request, response) => {
         db.User.findAll({
@@ -62,6 +57,12 @@ module.exports = (app) => {
         });
     });
 
+// Create Program page
+
+    app.get('/admin/create', (request, response) => {
+        response.render('admin-create');
+    });
+
 // Form page for NEW WORKOUT
     app.get('/admin/workout', (request, response) => {
         db.Program.findAll({
@@ -72,6 +73,7 @@ module.exports = (app) => {
             response.render('newWorkout', progList);
         });
     });
+    
     app.post('/admin/workout/new', (request, response) => {
         console.log(request.body);
         db.WorkoutDay.create({

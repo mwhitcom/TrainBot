@@ -1,8 +1,12 @@
+/*Program page*/
+
 .workouts {
     display: none;
 }
 
-.program-block {
+.program-block,
+.list-block,
+.create-block {
     width: 100%;
     min-height: calc(100vh-120px);
     background-color: #000;
@@ -14,7 +18,9 @@
 }
 
 .program_section,
-.workouts {
+.workouts,
+.list-section,
+.create-section {
     position: absolute;
     width: 90%;
     height: 70%;
@@ -27,7 +33,8 @@
     overflow: scroll;
 }
 
-.program-div h1 {
+.program-div h1,
+.list-section h1 {
     background: rgba(0, 0, 0, 0.3);
     color: #fff;
     float: left;
@@ -60,7 +67,8 @@
     margin: 0;
 }
 
-.workouts-header-text{
+.workouts-header-text,
+.create-content-title{
     background: rgba(0, 0, 0, 0.3);
     color: #fff;
     float: left;
@@ -106,3 +114,37 @@
     float: right;
 }
 
+
+/*CLient List*/
+
+.list-content,
+.create-content {
+    clear: both;
+    width: 100%;
+    float: left;
+    border-top: 3px solid #000;
+}
+
+.list-content ul {
+    padding: 15px 15px 5px 15px;
+    border-bottom: 1px solid #000;
+}
+
+.list-content li {
+    display: inline-block;
+    padding-right: 10%;
+    font-size: 18px;
+}
+
+.client-bar {
+    width: 100%;
+    clear: both;
+    margin-top: 10px;
+}
+
+
+/*create page*/
+
+.create-days-block {
+    display: none;
+}
