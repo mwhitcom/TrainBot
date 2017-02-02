@@ -45,6 +45,12 @@ module.exports = (app) => {
         });
     });
 
+// Create Program page
+
+    app.get('/admin/create', (request, response) => {
+        response.render('admin-create');
+    });
+
 // Form page for NEW WORKOUT
     app.get('/admin/workout', (request, response) => {
         db.Program.findAll({

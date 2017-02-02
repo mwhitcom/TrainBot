@@ -83,3 +83,15 @@ function updateWorkout(){
 
     })
 }
+
+
+
+
+// Program Create Logic
+
+$(document).on("click", ".submit-button-test", () => {
+    $(".create-content").hide();
+    $(".create-days-block").show();
+
+
+});
