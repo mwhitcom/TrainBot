@@ -249,7 +249,12 @@ module.exports = (app) => {
 
 
         app.post('/login', passport.authenticate('local', 
-          {  successRedirect: '/',
+          {  successRedirect: '/user/workout',
+            failureRedirect: '/signup'}
+        ));
+
+        app.post('/login/admin', passport.authenticate('local', 
+          {  successRedirect: '/admin/clients',
             failureRedirect: '/signup'}
         ));
 
