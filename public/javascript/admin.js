@@ -1,3 +1,14 @@
+// Progress bar percent
+$(document).ready(() => {
+    var value = $('.data-storage').attr('id');
+    var split = value.split(',');
+    console.log(split);
+
+    for (var i = 0; i < split.length; i++){
+        var percent = split[i];
+        $(`.span-${i+1}`).attr('style', `width:${percent}%`);
+    }
+});
 
 $(".back-button").on("click", () => {
     $(".program_section").show();

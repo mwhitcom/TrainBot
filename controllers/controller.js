@@ -49,22 +49,63 @@ module.exports = (app) => {
         });
     });
 
-    app.get('/user/profile', (request, response) => {
-        response.render('user-profile');
+    app.get('/user/profile', isLoggedIn, (request, response) => {
+        db.User.findOne({
+            where: {
+                id: request.user.id
+            },
+            attributes: ['name', 'username', 'email', 'password', 'currentDay'],
+            include: {
+                model: db.Program,
+                attritbues: ['name', 'days']
+            }
+        }).then((result) => {
+            var userInfo = {
+                info: result
+            };
+            console.log(result);
+            response.render('user-profile', userInfo);
+        });
+    });
+
+    app.put('/user/profile', isLoggedIn, (request, response) => {
+        db.User.update({
+            name: request.body.name,
+            username: request.body.username,
+            email:request.body.email
+        },{
+            where: {id: request.user.id}
+        }).then((result) => {
+            response.redirect('/user/profile');
+        })
     });
 
 // Client List
     app.get('/admin/clients', (request, response) => {
         db.User.findAll({
-            attributes: ['name', 'username', 'email'],
+            attributes: ['id', 'name', 'username', 'email', 'currentDay'],
             include: {
                 model: db.Program,
-                attributes: ['name', 'description']
+                attributes: ['name', 'description', 'days']
             }
         }).then((result) =>{
+            var percentArray = [];
+            for (var i = 0; i < result.length; i++){
+                var currentDay = result[i].dataValues.currentDay;
+                var day = result[i].dataValues.Program.dataValues.days;
+                var percent = (currentDay / day) * 100;
+                percentArray.push(percent);
+            }
+
+            var percentObject = {
+                percent: percentArray
+            }
+
             var clientList = {
-                clients: result
+                clients: result,
+                percents: percentObject
             };
+
             response.render('admin-client', clientList);
         });
     });
@@ -182,7 +223,7 @@ module.exports = (app) => {
 
     // User Registration routes    
     app.post('/users/register', (request, response) => {
-         let name = request.body.username; 
+         let name = request.body.name; 
          let username = request.body.username;
          let email = request.body.email;
          let password = request.body.password;
