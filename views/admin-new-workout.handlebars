@@ -25,16 +25,16 @@
             <form class="program-form" method="" action="">
                 
                 <div class='create__workout-program'>
-                    <select  class="form-control" id='workout-program' name='program'>
-                        {{#each programs}}
-                            <option value='{{this.id}}'>{{this.name}}</option>
-                        {{/each}}
-                    </select>
+                    <label>Program:</label>
+                        {{#with programs}}
+                        
+                        <input class="workout-program" type="text" id='{{this.id}}' value='{{this.name}}'></input>
+                        {{/with}}
                 </div>
 
                 <div class='create__workout-day'>
-                    <label>Day Number:</label>
-                    <input type='number' name='day' id='workout-id' value='1'>
+                    {{!--<label>Day Number:</label>
+                    <input type='number' name='day' id='workout-id'>--}}
                 </div>
 
                 <div class="create__workout-text">
