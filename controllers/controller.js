@@ -49,21 +49,52 @@ module.exports = (app) => {
         });
     });
 
-    app.get('/user/profile', (request, response) => {
-        response.render('user-profile');
+    app.get('/user/profile', isLoggedIn, (request, response) => {
+        db.User.findOne({
+            where: {
+                id: request.user.id
+            },
+            attributes: ['name', 'username', 'email', 'password', 'currentDay'],
+            include: {
+                model: db.Program,
+                attritbues: ['name', 'days']
+            }
+        }).then((result) => {
+            var userInfo = {
+                info: result
+            };
+            console.log(result);
+            response.render('user-profile', userInfo);
+        });
+    });
+
+    app.put('/user/profile', isLoggedIn, (request, response) => {
+        db.User.update({
+            name: request.body.name,
+            username: request.body.username,
+            email:request.body.email
+        },{
+            where: {id: request.user.id}
+        }).then((result) => {
+            response.redirect('/user/profile');
+        })
     });
 
 // Client List
     app.get('/admin/clients', (request, response) => {
         db.User.findAll({
-            attributes: ['name', 'username', 'email'],
+            attributes: ['id', 'name', 'username', 'email', 'currentDay'],
             include: {
                 model: db.Program,
-                attributes: ['name', 'description']
+                attributes: ['name', 'description', 'days']
             }
         }).then((result) =>{
+            var lengthObject = {
+                length: result.length
+            }
             var clientList = {
-                clients: result
+                clients: result,
+                length: lengthObject
             };
             response.render('admin-client', clientList);
         });
@@ -176,12 +207,30 @@ module.exports = (app) => {
         });  
     });
 
+    
+        app.post('/login', passport.authenticate('local-signIn', 
+          {  successRedirect: '/user/workout',
+            failureRedirect: '/',
+            failureFlash: true
+        }
+        ));
 
+        app.post('/login/admin', passport.authenticate('local-signIn', 
+          {  successRedirect: '/admin/clients',
+            failureRedirect: '/',
+            failureFlash: true}
+        ));
+
+        app.get('/logout', isLoggedIn, (request, response, next) => {
+            request.logout();
+            request.flash('success_msg', "You are logged out");
+            response.redirect('/');
+        })
 
 
     // User Registration routes    
     app.post('/users/register', (request, response) => {
-         let name = request.body.username; 
+         let name = request.body.name; 
          let username = request.body.username;
          let email = request.body.email;
          let password = request.body.password;
@@ -210,27 +259,26 @@ module.exports = (app) => {
                      email: email,
                      ProgramId: program
                  }).then(
-                    ()=>{
-                        console.log("User Registered")
-                        response.redirect('/');
-                    }
+                    (user)=>{
+                       passport.authenticate("local-signIn", {failureRedirect:"/signup", successRedirect: "/user/profile"})(request, response) 
+                       request.flash('success_msg', 'You are registered and can now login');
+                     }
              )}
      });
 
+// ******************************************************************************
+// *************************** PASSPORT CONFIG***********************************
+// ******************************************************************************
 
-
-      passport.use(new LocalStrategy.Strategy(
+      passport.use('local-signIn', new LocalStrategy.Strategy(
         (username, password, done) => {
         db.User.findOne({ where: { 'username': username }}).then((user) => {
-            console.log(user.get({
-                    plain: true
-                }))
+            if(!user){return done(null, false, {message:'Unknown User'})}
             let hashedPW = bcrypt.hashSync(password, user.salt) 
             if(user.password === hashedPW){
-
               return  done(null, user);
             }
-            return done(null, false , console.log('incorrect password'))
+            return done(null, false , { message: 'Incorrect password.'})
           })
         }
       ));
@@ -252,13 +300,12 @@ module.exports = (app) => {
       }
         // Serialize Sessions
       passport.serializeUser((user, done) => {
-          console.log("-user object being serialized ---->" + user)
         done(null, user);
       });
 
     //   Deserialize Sessions
       passport.deserializeUser((user, done) => {
-        db.User.findOne({where: {'username': user.username}}).then( (user) => {
+        db.User.findOne({where: {'username': user.username}}).then((user) => {
           done(null, user);
         }).catch((err) => {
           done(err, null)
@@ -267,18 +314,4 @@ module.exports = (app) => {
 
 
 
-        app.post('/login', passport.authenticate('local', 
-          {  successRedirect: '/user/workout',
-            failureRedirect: '/signup'}
-        ));
-
-        app.post('/login/admin', passport.authenticate('local', 
-          {  successRedirect: '/admin/clients',
-            failureRedirect: '/signup'}
-        ));
-
-        app.get('/logout', isLoggedIn, (request, response, next) => {
-            request.logout();
-            response.redirect('/');
-        })
 };

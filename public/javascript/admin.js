@@ -1,3 +1,14 @@
+// Progress bar percent
+$(document).ready(() => {
+    var length = $('.data-storage').attr('id');
+
+    for (var i = 0; i < length; i++){
+        var currentDay = $(`.${i+1}`).attr('id');
+        var day = $(`.${i+1}`).attr('value');
+        var percent = (currentDay / day) *100;
+        $(`.span-${i+1}`).attr('style', `width:${percent}%`);
+    }
+});
 
 // Allows us to use the addDayInput function
 $(document).ready(() => {
