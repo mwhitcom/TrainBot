@@ -18,8 +18,8 @@
     </ul>
 </div>
 
-{{#with percents}}
-<div class="data-storage" id={{percent}} style="display:none"></div>
+{{#with length}}
+<div class="data-storage" id={{length}} style="display:none"></div>
 {{/with}}
 
 <div class="list-block">
@@ -33,7 +33,7 @@
                     <li>User Name: {{username}}</li>
                     <li>Program: {{Program.name}}</li>
                     <div class="client-bar">
-                        <h1 id={{currentDay}} value="{{Program.days}}">{{currentDay}}/{{Program.days}} Days</h1>
+                        <h1 class="{{id}}" id={{currentDay}} value="{{Program.days}}">{{currentDay}}/{{Program.days}} Days</h1>
                         <span class="span-{{id}}"></span>
                     </div>        
                 </ul>
