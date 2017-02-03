@@ -211,16 +211,15 @@ module.exports = (app) => {
                      email: email,
                      ProgramId: program
                  }).then(
-                    ()=>{
-                        console.log("User Registered")
-                        response.redirect('/');
+                    (user)=>{
+                       passport.authenticate("local-signIn", {failureRedirect:"/signup", successRedirect: "/user/workout"})(request, response) 
                     }
              )}
      });
 
 
 
-      passport.use(new LocalStrategy.Strategy(
+      passport.use('local-signIn', new LocalStrategy.Strategy(
         (username, password, done) => {
         db.User.findOne({ where: { 'username': username }}).then((user) => {
             console.log(user.get({
@@ -268,12 +267,12 @@ module.exports = (app) => {
 
 
 
-        app.post('/login', passport.authenticate('local', 
+        app.post('/login', passport.authenticate('local-signIn', 
           {  successRedirect: '/user/workout',
             failureRedirect: '/signup'}
         ));
 
-        app.post('/login/admin', passport.authenticate('local', 
+        app.post('/login/admin', passport.authenticate('local-signIn', 
           {  successRedirect: '/admin/clients',
             failureRedirect: '/signup'}
         ));
