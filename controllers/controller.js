@@ -218,7 +218,21 @@ module.exports = (app) => {
         });  
     });
 
+    
+        app.post('/login', passport.authenticate('local-signIn', 
+          {  successRedirect: '/user/workout',
+            failureRedirect: '/signup'}
+        ));
 
+        app.post('/login/admin', passport.authenticate('local-signIn', 
+          {  successRedirect: '/admin/clients',
+            failureRedirect: '/signup'}
+        ));
+
+        app.get('/logout', isLoggedIn, (request, response, next) => {
+            request.logout();
+            response.redirect('/');
+        })
 
 
     // User Registration routes    
@@ -252,16 +266,17 @@ module.exports = (app) => {
                      email: email,
                      ProgramId: program
                  }).then(
-                    ()=>{
-                        console.log("User Registered")
-                        response.redirect('/');
+                    (user)=>{
+                       passport.authenticate("local-signIn", {failureRedirect:"/signup", successRedirect: "/user/profile"})(request, response) 
                     }
              )}
      });
 
+// ******************************************************************************
+// *************************** PASSPORT CONFIG***********************************
+// ******************************************************************************
 
-
-      passport.use(new LocalStrategy.Strategy(
+      passport.use('local-signIn', new LocalStrategy.Strategy(
         (username, password, done) => {
         db.User.findOne({ where: { 'username': username }}).then((user) => {
             console.log(user.get({
@@ -309,18 +324,4 @@ module.exports = (app) => {
 
 
 
-        app.post('/login', passport.authenticate('local', 
-          {  successRedirect: '/user/workout',
-            failureRedirect: '/signup'}
-        ));
-
-        app.post('/login/admin', passport.authenticate('local', 
-          {  successRedirect: '/admin/clients',
-            failureRedirect: '/signup'}
-        ));
-
-        app.get('/logout', isLoggedIn, (request, response, next) => {
-            request.logout();
-            response.redirect('/');
-        })
 };
