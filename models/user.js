@@ -8,7 +8,12 @@ module.exports = (sequelize, DataTypes)=> {
     name:{type: DataTypes.STRING },
     salt:{type: DataTypes.STRING},
  },{
-   timestamps: false
+    classMethods: {
+      associate: function(models){
+          User.belongsTo(models.Program);
+      }
+    },
+    timestamps: false
  });
   return User;
 };
