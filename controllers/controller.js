@@ -35,8 +35,6 @@ module.exports = (app) => {
             var workoutObject = {
                 singleWorkout: results
             };
-            // console.log(results);
-            // console.log(workoutObject);
             response.render('user-workout', workoutObject);
         });
     });
@@ -71,14 +69,22 @@ module.exports = (app) => {
         });
     });
 
-// Create Program page
-
+// New program page
     app.get('/admin/create', (request, response) => {
         response.render('admin-create');
     });
 
+// Creates new program
+    app.post('/admin/create', (request, response) => {
+        db.Program.create(
+            request.body
+        ).then( (dbPost) => {
+            response.json(dbPost);
+        });
+    });
+
 // Form page for NEW WORKOUT
-    app.get('/admin/workout', (request, response) => {
+    app.get('/admin/create/workout', (request, response) => {
         db.Program.findAll({
         }).then((result) =>{
             var progList = {
@@ -88,7 +94,8 @@ module.exports = (app) => {
         });
     });
     
-    app.post('/admin/workout/new', (request, response) => {
+// Create new workout
+    app.post('/admin/create/workout', (request, response) => {
         console.log(request.body);
         db.WorkoutDay.create({
             day: request.body.day,
@@ -96,8 +103,9 @@ module.exports = (app) => {
             ProgramId: request.body.program
         }).then((dbWorkOut) => {
             console.log(dbWorkOut);
+            response.render('admin-new-workout');
         });
-        response.redirect('/admin/workout');
+        
     });
 
 // Form Page to UPDATE WORKOUT
@@ -107,7 +115,7 @@ module.exports = (app) => {
 
 
 
-// List of all programs
+// gets all of the programs
     app.get('/admin/programs', (request, response) => {
         db.Program.findAll({
         }).then((result) =>{
@@ -119,16 +127,18 @@ module.exports = (app) => {
         });
     });
 
-    app.post('admin/programs', (request, response) =>{
-        db.Program.create({
-            name: request.body.name,
-            days: request.body.days,
-            description: request.body.description
-        }).then((dbProgram)=>{
-            response.json(dbProgram);
-        });
-    });
+// creates new program
+    // app.post('admin/programs', (request, response) =>{
+    //     db.Program.create({
+    //         name: request.body.name,
+    //         days: request.body.days,
+    //         description: request.body.description
+    //     }).then((dbProgram)=>{
+    //         response.json(dbProgram);
+    //     });
+    // });
 
+// gets the individual workout program
     app.get('/admin/programs/:id', (request, response) => {
         db.Program.findOne({
             where: {

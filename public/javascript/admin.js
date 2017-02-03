@@ -1,13 +1,12 @@
 
-
 $(".back-button").on("click", () => {
     $(".program_section").show();
     $(".workouts").hide();
     $(".workouts-content-block").empty();
 });
 
-// Choose Program, takes you to page with ALL associated workouts
 
+// Choose Program, takes you to page with ALL associated workouts
 $('.program_section').on('click','.programChoice' , (e) =>{
     e.preventDefault();
     let id = $(e.target).attr('id');
@@ -16,8 +15,8 @@ $('.program_section').on('click','.programChoice' , (e) =>{
     getWorkout(id, program);
 });
 
-// Choose Workout to UPDATE
 
+// Choose Workout to UPDATE
 $('.workouts').on('click', '.singleWorkout', (e) =>{
     e.preventDefault();
     let dayId = $(e.target).data('dayId');
@@ -25,7 +24,30 @@ $('.workouts').on('click', '.singleWorkout', (e) =>{
     console.log(dayId + " " + progId);
 });
 
+$('.create-content').on('click', '.submit-workout', (e) =>{
+    e.preventDefault();
+    let parsedDays = parseInt( sessionStorage.getItem('days') );
+    let parsedCount = parseInt( sessionStorage.getItem('count') );
 
+    let newWorkout = {
+        day: $('#workout-id').val().trim(),
+        text: $('#workout-text').val().trim(),
+        ProgramId: $('#workout-program').val()
+    }
+    console.log( $('#workout-program').val().trim() );
+    if( parsedCount <= parsedDays){
+        $('#workout-id').attr({value: parsedCount });
+        sessionStorage.setItem('count', (parsedCount + 1) );
+        $.ajax({
+            method: "POST",
+            url: '/admin/create/workout',
+            data: newWorkout
+        }).done(function(){
+            window.location.href = '/admin/create/workout';
+        });
+    }
+
+});
 
 function getWorkout(id, program){
     $('.program_section').hide();
@@ -60,9 +82,6 @@ function getWorkout(id, program){
     });
 };
 
-
-// var addUpdateButton = function(){};
-
 function addUpdateButton(day, program){
     var newBtn = $('<button>');
     var btnDiv = $('<div>');
@@ -85,32 +104,36 @@ function updateWorkout(){
     $('.program_section').hide();
     $('.workouts').hide();
 
-    let queryUrl = '/admin/programs/update' + id;
+    let queryUrl = '/admin/programs/update';
 
-    $.put(queryUrl, function(data){
-
-    })
-}
-
-
-
-
-// Program Create Logic
-
-$(document).on("click", ".submit-button-test", () => {
-    $(".create-content").hide();
-    $(".create-days-block").show();
-
-
-});
-
-function setSession(id, program){
-    sessionStorage.setItem('workoutDay',id);
-     sessionStorage.setItem('ProgramId',program); 
+    $.ajax({
+        method: "PUT",
+        url: queryUrl,
+        data: update
+    }).done(function(){
+        window.location.href = "/admin/programs/update";
+    }); 
 };
 
-function getSession(){
-    var ab = sessionStorage.getItem('workoutDay');
-    var cd = sessionStorage.getItem('ProgramId');
-    console.log(ab + '\n' + cd);
-}
+
+// Create Program Logic
+
+$(document).on("click", ".submit-program", (e) => {
+    e.preventDefault();
+    let newProgram = {
+        name: $('#program-name').val().trim(),
+        days: $('#program-days').val().trim(),
+        description: $('#program-description').val().trim()
+    }
+    let queryUrl = '/admin/create';
+    sessionStorage.setItem("days", $('#program-days').val().trim());
+    sessionStorage.setItem('count', '1');
+    
+    $.ajax({
+        method: "POST",
+        url: queryUrl,
+        data: newProgram
+    }).done(function(){
+        window.location.href = "/admin/create/workout";
+    });
+});
