@@ -89,23 +89,13 @@ module.exports = (app) => {
                 attributes: ['name', 'description', 'days']
             }
         }).then((result) =>{
-            var percentArray = [];
-            for (var i = 0; i < result.length; i++){
-                var currentDay = result[i].dataValues.currentDay;
-                var day = result[i].dataValues.Program.dataValues.days;
-                var percent = (currentDay / day) * 100;
-                percentArray.push(percent);
+            var lengthObject = {
+                length: result.length
             }
-
-            var percentObject = {
-                percent: percentArray
-            }
-
             var clientList = {
                 clients: result,
-                percents: percentObject
+                length: lengthObject
             };
-
             response.render('admin-client', clientList);
         });
     });
