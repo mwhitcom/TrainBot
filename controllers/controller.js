@@ -22,13 +22,31 @@ module.exports = (app) => {
     });
 
 // User page
+    app.get('/user/workout', (request, response) =>{
+        db.WorkoutDay.findOne({
+            where: {
+                day: 2, //sessionStorage.getItem('workoutDay'),
+                ProgramId: 1 //sessionStorage.getItem('ProgramId')
+            },
+            include: {
+                model: db.Program,
+                attributes: ['name']
+            }
+        }).then((results) =>{
+            var workoutObject = {
+                singleWorkout: results
+            };
+            console.log(results);
+            console.log(workoutObject);
+            response.render('user-workout', workoutObject);
+        });
     app.get('/user/workout', isLoggedIn, (request, response) =>{
         response.render('user-workout');
     });
 
     app.get('/user/profile', (request, response) =>{
         response.render('user-profile');
-    })
+    });
 
 // Client List
     app.get('/admin/clients', (request, response) => {
@@ -42,7 +60,7 @@ module.exports = (app) => {
             var clientList = {
                 clients: result
             };
-            response.render('clientList', clientList);
+            response.render('admin-client', clientList);
         });
     });
 
@@ -59,7 +77,7 @@ module.exports = (app) => {
             var progList = {
                 programs: result
             };
-            response.render('newWorkout', progList);
+            response.render('admin-new-workout', progList);
         });
     });
     
@@ -104,27 +122,6 @@ module.exports = (app) => {
         });
     });
 
-
-// List of workouts for individual program
-    // app.get('/admin/programs/:id', (request, response) => {
-    //     db.Program.findOne({
-    //         where: {
-    //             id: request.params.id
-    //         },
-    //         attributes: ['id', 'name'],
-    //         include: {
-    //             model: db.WorkoutDay,
-    //             attributes: ['day', 'text']    
-    //         }
-    //     }).then((results) =>{
-    //         var progDetails = {
-    //             details: results
-    //         };
-    //         console.log(progDetails);
-    //         response.render('details', progDetails)
-    //     })
-    // });
-
     app.get('/admin/programs/:id', (request, response) => {
         db.Program.findOne({
             where: {
@@ -138,7 +135,7 @@ module.exports = (app) => {
         }).then((results) =>{
  
             response.json(results);
-        })
+        });
     });
 
 // Form page for Client Program UPDATE
@@ -202,7 +199,7 @@ module.exports = (app) => {
                         response.redirect('/');
                     }
              )}
-     })
+     });
 
 
 
@@ -267,4 +264,4 @@ module.exports = (app) => {
             request.logout();
             response.redirect('/');
         })
-};
+})};
