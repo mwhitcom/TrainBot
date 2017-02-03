@@ -170,6 +170,7 @@ module.exports = (app) => {
          let email = request.body.email;
          let password = request.body.password;
          let password2 = request.body.password2;
+         let program = request.body.workouts;
          
           request.checkBody('name', 'Name is required').notEmpty();
           request.checkBody('email', 'Email is required').notEmpty();
@@ -190,7 +191,8 @@ module.exports = (app) => {
                      username: username,
                      password: hashedPassword,
                      salt: salt,
-                     email: email
+                     email: email,
+                     ProgramId: program
                  }).then(
                     ()=>{
                         console.log("User Registered")
