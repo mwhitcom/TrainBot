@@ -41,6 +41,16 @@ module.exports = (app) => {
         });
     });
 
+    app.put('/user/workout', isLoggedIn, (request, response) => {
+        db.User.update(
+            request.body,
+        {
+            where: {id: request.user.id}
+        }).then((result) => {
+            response.json(result);
+        });
+    });
+
     app.get('/user/profile', (request, response) => {
         response.render('user-profile');
     });

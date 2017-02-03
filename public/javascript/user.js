@@ -1,12 +1,20 @@
 
-$('.workout-card').on('click', '.complete-button button', () => {
+$('.workout-card').on('click', '.complete-button button', (e) => {
     e.preventDefault();
-    let day = $(e.target).attr('id');
-    console.log(day);
-    console.log( typeof day);
-    // let queryUrl = '/user/workout/' + id;
-    
-    // $.put(queryUrl, function(data){
+    let day = parseInt($(e.target).attr('id'));
+    day = day+1;
+    let update = {
+        currentDay: day
+    }
 
-    // })
+    let queryUrl = '/user/workout/';
+    
+    $.ajax({
+        method: "PUT",
+        url: queryUrl,
+        data: update
+    }).done(function(){
+        window.location.href = "/user/profile";
+    }); 
+    
 })
