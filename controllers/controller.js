@@ -24,8 +24,12 @@ module.exports = (app) => {
     app.get('/user/workout', (request, response) =>{
         db.WorkoutDay.findOne({
             where: {
-                day: 2, // SessionStorageUserCurrentDay
+                day: sessionStorage.getItem('workoutDay', 1), // SessionStorageUserCurrentDay
                 ProgramId: 1 // SessionStorageUserProgramId
+            },
+            include: {
+                model: db.Program,
+                attributes: ['name']
             }
         }).then((results) =>{
             var workoutObject = {

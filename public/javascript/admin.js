@@ -1,8 +1,12 @@
+
+
 $(".back-button").on("click", () => {
     $(".program_section").show();
     $(".workouts").hide();
     $(".workouts-content-block").empty();
 });
+
+// Choose Program, takes you to page with ALL associated workouts
 
 $('.program_section').on('click','.programChoice' , (e) =>{
     e.preventDefault();
@@ -10,7 +14,11 @@ $('.program_section').on('click','.programChoice' , (e) =>{
     let program = $(e.target).attr('value');
     // console.log( program );
     getWorkout(id, program);
+    setSession(id, program);
+    getSession();
 });
+
+// Choose Workout to UPDATE
 
 $('.workouts').on('click', '.singleWorkout', (e) =>{
     e.preventDefault();
@@ -53,6 +61,8 @@ function getWorkout(id, program){
         }
     });
 };
+
+
 // var addUpdateButton = function(){};
 
 function addUpdateButton(day, program){
@@ -95,3 +105,14 @@ $(document).on("click", ".submit-button-test", () => {
 
 
 });
+
+function setSession(id, program){
+    sessionStorage.setItem('workoutDay',id);
+     sessionStorage.setItem('ProgramId',program); 
+};
+
+function getSession(){
+    var ab = sessionStorage.getItem('workoutDay');
+    var cd = sessionStorage.getItem('ProgramId');
+    console.log(ab + '\n' + cd);
+}
