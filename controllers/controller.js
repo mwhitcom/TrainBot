@@ -1,7 +1,6 @@
 const express = require('express');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-// const User = require('../models/user.js')
 const app = express();
 const db = require("../models");
 const bcrypt = require('bcryptjs');
@@ -23,8 +22,6 @@ module.exports = (app) => {
 
 // User page
     app.get('/user/workout', isLoggedIn, (request, response) => {
-        console.log("**************\n" + request.user.name + "\n************\n" + request.user.ProgramId);
-
         db.WorkoutDay.findOne({
             where: {
                 day: request.user.currentDay,
@@ -43,11 +40,6 @@ module.exports = (app) => {
             response.render('user-workout', workoutObject);
         });
     });
-
-
-    // app.get('/user/workout', isLoggedIn, (request, response) =>{
-    //     response.render('user-workout');
-    // });
 
     app.get('/user/profile', (request, response) => {
         response.render('user-profile');

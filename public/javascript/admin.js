@@ -14,8 +14,6 @@ $('.program_section').on('click','.programChoice' , (e) =>{
     let program = $(e.target).attr('value');
     // console.log( program );
     getWorkout(id, program);
-    setSession(id, program);
-    getSession();
 });
 
 // Choose Workout to UPDATE
