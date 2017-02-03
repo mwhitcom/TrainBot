@@ -25,8 +25,8 @@ module.exports = (app) => {
     app.get('/user/workout', (request, response) =>{
         db.WorkoutDay.findOne({
             where: {
-                day: sessionStorage.getItem('workoutDay'), // SessionStorageUserCurrentDay
-                ProgramId: sessionStorage.getItem('ProgramId') // SessionStorageUserProgramId
+                day: 2, //sessionStorage.getItem('workoutDay'),
+                ProgramId: 1 //sessionStorage.getItem('ProgramId')
             },
             include: {
                 model: db.Program,
@@ -38,7 +38,7 @@ module.exports = (app) => {
             };
             console.log(results);
             console.log(workoutObject);
-            response.render('user-workout');
+            response.render('user-workout', workoutObject);
         });
     app.get('/user/workout', isLoggedIn, (request, response) =>{
         response.render('user-workout');
@@ -257,4 +257,4 @@ module.exports = (app) => {
             request.logout();
             response.redirect('/');
         })
-});
+})};

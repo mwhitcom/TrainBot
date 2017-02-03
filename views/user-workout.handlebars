@@ -24,17 +24,13 @@
 
     <div class="workout-card">
         <div class="workout-content">
-            <h1 class="card-day">Day 1</h1>
-            <h1 class="card-program">Powerlifting</h1>
-            <p class="card-text">A) Lorem ipsum dolor sit amet,
-                B) consectetur adipiscing elit. Proin enim sem, 
-                C) ultricies nec lectus in, finibus pharetra urna. 
-                D) Nullam vel dignissim lorem, suscipit convallis ex.
-                B) consectetur adipiscing elit. Proin enim sem, 
-                C) ultricies nec lectus in, finibus pharetra urna. 
-                D) Nullam vel dignissim lorem, suscipit convallis ex.
-                B) consectetur adipiscing elit. Proin enim sem, 
+            {{#with singleWorkout}}
+            <h1 class="card-day">Day {{day}}</h1>
+            <h1 class="card-program">{{Program.name}}</h1>
+            <p class="card-text">
+                {{text}} 
             </p>
+            {{/with}}
         </div>
         <form class="card-feedback">
             <label class="feedback-label" for="feeback">Submit Feedback About Your Workout:</label>
