@@ -218,7 +218,21 @@ module.exports = (app) => {
         });  
     });
 
+    
+        app.post('/login', passport.authenticate('local-signIn', 
+          {  successRedirect: '/user/workout',
+            failureRedirect: '/signup'}
+        ));
 
+        app.post('/login/admin', passport.authenticate('local-signIn', 
+          {  successRedirect: '/admin/clients',
+            failureRedirect: '/signup'}
+        ));
+
+        app.get('/logout', isLoggedIn, (request, response, next) => {
+            request.logout();
+            response.redirect('/');
+        })
 
 
     // User Registration routes    
@@ -253,12 +267,14 @@ module.exports = (app) => {
                      ProgramId: program
                  }).then(
                     (user)=>{
-                       passport.authenticate("local-signIn", {failureRedirect:"/signup", successRedirect: "/user/workout"})(request, response) 
+                       passport.authenticate("local-signIn", {failureRedirect:"/signup", successRedirect: "/user/profile"})(request, response) 
                     }
              )}
      });
 
-
+// ******************************************************************************
+// *************************** PASSPORT CONFIG***********************************
+// ******************************************************************************
 
       passport.use('local-signIn', new LocalStrategy.Strategy(
         (username, password, done) => {
@@ -308,18 +324,4 @@ module.exports = (app) => {
 
 
 
-        app.post('/login', passport.authenticate('local-signIn', 
-          {  successRedirect: '/user/workout',
-            failureRedirect: '/signup'}
-        ));
-
-        app.post('/login/admin', passport.authenticate('local-signIn', 
-          {  successRedirect: '/admin/clients',
-            failureRedirect: '/signup'}
-        ));
-
-        app.get('/logout', isLoggedIn, (request, response, next) => {
-            request.logout();
-            response.redirect('/');
-        })
 };
