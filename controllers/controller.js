@@ -22,30 +22,34 @@ module.exports = (app) => {
     });
 
 // User page
-    app.get('/user/workout', (request, response) =>{
+    app.get('/user/workout', isLoggedIn, (request, response) => {
+        console.log("**************\n" + request.user.name + "\n************\n" + request.user.ProgramId);
+
         db.WorkoutDay.findOne({
             where: {
-                day: 2, //sessionStorage.getItem('workoutDay'),
-                ProgramId: 1 //sessionStorage.getItem('ProgramId')
+                day: request.user.currentDay,
+                ProgramId: request.user.ProgramId
             },
             include: {
                 model: db.Program,
                 attributes: ['name']
             }
-        }).then((results) =>{
+        }).then((results) => {
             var workoutObject = {
                 singleWorkout: results
             };
-            console.log(results);
-            console.log(workoutObject);
+            // console.log(results);
+            // console.log(workoutObject);
             response.render('user-workout', workoutObject);
         });
     });
-    app.get('/user/workout', isLoggedIn, (request, response) =>{
-        response.render('user-workout');
-    });
 
-    app.get('/user/profile', (request, response) =>{
+
+    // app.get('/user/workout', isLoggedIn, (request, response) =>{
+    //     response.render('user-workout');
+    // });
+
+    app.get('/user/profile', (request, response) => {
         response.render('user-profile');
     });
 
@@ -212,6 +216,7 @@ module.exports = (app) => {
                 }))
             let hashedPW = bcrypt.hashSync(password, user.salt) 
             if(user.password === hashedPW){
+
               return  done(null, user);
             }
             return done(null, false , console.log('incorrect password'))
