@@ -261,7 +261,7 @@ module.exports = (app) => {
                      ProgramId: program
                  }).then(
                     (user)=>{
-                       passport.authenticate("local-signIn", {failureRedirect:"/", successRedirect: "/user/profile"})(request, response) 
+                       passport.authenticate("local-signIn", {failureRedirect:"/signup", successRedirect: "/user/profile"})(request, response) 
                        request.flash('success_msg', 'You are registered and can now login');
                      }
              )}
@@ -285,7 +285,7 @@ module.exports = (app) => {
       ));
 
       // function that allowes rout access only to logged in users /// 
-       isLoggedIn =(request, response, next) => {
+      function isLoggedIn(request, response, next){
           if(request.isAuthenticated()){
               return next();
           }
@@ -293,7 +293,7 @@ module.exports = (app) => {
           
       }
     // function that allowes rout access only to logged in users /// 
-           notLoggedIn =(request, response, next) => {
+          function notLoggedIn(request, response, next){
           if(!request.isAuthenticated()){
               return next();
           }
