@@ -221,7 +221,8 @@
     font-size: 16px;
 }
 
-.progress-bar span {
+.progress-bar span,
+.client-bar span {
     padding-top: 2px;
     width: 0%;
     display: inline-block;
@@ -231,7 +232,8 @@
     overflow: hidden;
 }
 
-.progress-bar h1{
+.progress-bar h1,
+.client-bar h1 {
     position: absolute;
     left: 45%;
     z-index: 25;

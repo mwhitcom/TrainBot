@@ -85,15 +85,29 @@ module.exports = (app) => {
 // Client List
     app.get('/admin/clients', (request, response) => {
         db.User.findAll({
-            attributes: ['name', 'username', 'email'],
+            attributes: ['id', 'name', 'username', 'email', 'currentDay'],
             include: {
                 model: db.Program,
-                attributes: ['name', 'description']
+                attributes: ['name', 'description', 'days']
             }
         }).then((result) =>{
+            var percentArray = [];
+            for (var i = 0; i < result.length; i++){
+                var currentDay = result[i].dataValues.currentDay;
+                var day = result[i].dataValues.Program.dataValues.days;
+                var percent = (currentDay / day) * 100;
+                percentArray.push(percent);
+            }
+
+            var percentObject = {
+                percent: percentArray
+            }
+
             var clientList = {
-                clients: result
+                clients: result,
+                percents: percentObject
             };
+
             response.render('admin-client', clientList);
         });
     });
