@@ -8,6 +8,7 @@ const expressValidator = require('express-validator');
 const exphbs = require("express-handlebars");
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 // Requiring our models for syncing
@@ -35,9 +36,13 @@ app.set("view engine", "handlebars");
 app.use(express.static("./public"));
 app.use(cookieParser());
 // express session setting // 
+
 app.use(session({
   secret: "user secret",
-  cookie: {_expires: 88888810000000},
+  // store: new SequelizeStore({
+  //   db: db.sequelize
+  // }),
+  cookie: {maxAge: 180*60*1000},
   resave: true,
   saveUninitialized: true
 }));

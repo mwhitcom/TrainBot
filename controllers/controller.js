@@ -203,13 +203,21 @@ module.exports = (app) => {
         }
       ));
 
+      // function that allowes rout access only to logged in users /// 
       function isLoggedIn(request, response, next){
           if(request.isAuthenticated()){
               return next();
           }
           response.redirect('/');
+          
       }
-      
+    // function that allowes rout access only to logged in users /// 
+          function notLoggedIn(request, response, next){
+          if(!request.isAuthenticated()){
+              return next();
+          }
+          response.redirect('/');
+      }
         // Serialize Sessions
       passport.serializeUser((user, done) => {
           console.log("-user object being serialized ---->" + user)
@@ -231,4 +239,9 @@ module.exports = (app) => {
           {  successRedirect: '/',
             failureRedirect: '/signup'}
         ));
+
+        app.get('/logout', isLoggedIn, (request, response, next) => {
+            request.logout();
+            response.redirect('/');
+        })
 };
