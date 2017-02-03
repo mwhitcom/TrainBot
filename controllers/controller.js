@@ -24,19 +24,14 @@ module.exports = (app) => {
 // User page
     app.get('/user/workout', isLoggedIn, (request, response) =>{
         response.render('user-workout');
-    })
+    });
 
     app.get('/user/profile', (request, response) =>{
         response.render('user-profile');
     })
 
-// Admin page
-    app.get('/admin', (request, response) =>{
-        response.render('adminPanel');
-    })
-
 // Client List
-    app.get('/user', (request, response) => {
+    app.get('/admin/clients', (request, response) => {
         db.User.findAll({
             attributes: ['name', 'username', 'email'],
             include: {
@@ -47,21 +42,28 @@ module.exports = (app) => {
             var clientList = {
                 clients: result
             };
-            response.render('../views/clientList', clientList);
+            response.render('clientList', clientList);
         });
     });
 
+// Create Program page
+
+    app.get('/admin/create', (request, response) => {
+        response.render('admin-create');
+    });
+
 // Form page for NEW WORKOUT
-    app.get('/workout', (request, response) => {
+    app.get('/admin/workout', (request, response) => {
         db.Program.findAll({
         }).then((result) =>{
             var progList = {
                 programs: result
             };
-            response.render('../views/new_workout', progList);
+            response.render('newWorkout', progList);
         });
     });
-    app.post('/workout/new', (request, response) => {
+    
+    app.post('/admin/workout/new', (request, response) => {
         console.log(request.body);
         db.WorkoutDay.create({
             day: request.body.day,
@@ -70,12 +72,12 @@ module.exports = (app) => {
         }).then((dbWorkOut) => {
             console.log(dbWorkOut);
         });
-        response.redirect('/workout');
+        response.redirect('/admin/workout');
     });
 
 // Form Page to UPDATE WORKOUT
-    app.get('/workout/update', (request, response) =>{
-        response.render('update');
+    app.get('/admin/workout/update', (request, response) =>{
+        response.render('admin/workout/update');
     });
 
 
@@ -92,7 +94,7 @@ module.exports = (app) => {
         });
     });
 
-    app.post('/program', (request, response) =>{
+    app.post('admin/programs', (request, response) =>{
         db.Program.create({
             name: request.body.name,
             days: request.body.days,
@@ -104,7 +106,26 @@ module.exports = (app) => {
 
 
 // List of workouts for individual program
-    app.get('/program/:id', (request, response) => {
+    // app.get('/admin/programs/:id', (request, response) => {
+    //     db.Program.findOne({
+    //         where: {
+    //             id: request.params.id
+    //         },
+    //         attributes: ['id', 'name'],
+    //         include: {
+    //             model: db.WorkoutDay,
+    //             attributes: ['day', 'text']    
+    //         }
+    //     }).then((results) =>{
+    //         var progDetails = {
+    //             details: results
+    //         };
+    //         console.log(progDetails);
+    //         response.render('details', progDetails)
+    //     })
+    // });
+
+app.get('/admin/programs/:id', (request, response) => {
         db.Program.findOne({
             where: {
                 id: request.params.id
@@ -115,35 +136,30 @@ module.exports = (app) => {
                 attributes: ['day', 'text']    
             }
         }).then((results) =>{
-            console.log("\n\n"+ results +"\n\n")
-            var progDetails = {
-                details: results
-            };
-            console.log(progDetails);
-            response.render('../views/details', progDetails)
+ 
+            response.json(results);
         })
     });
 
-
 // Form page for Client Program UPDATE
-    app.get('/workout/update', (request, response) => {
+    app.get('/admin/clients/update', (request, response) => {
         db.User.findAll({   
         }).then((result) =>{
             var userObject = {
                 user: result
             };
             console.log(userObject);
-            response.render('test-update-program', userObject);
+            response.render('clientUpdate', userObject);
         });
     });
-    app.put('/workout/update/:id', (request, response) => {
+    app.put('/admin/clients/update:id', (request, response) => {
         console.log(request.body);
         db.User.update({
             ProgramId: request.body.program
         },{
             where: {id: request.params.id}
         }).then(() => {
-            response.redirect('/workout/update');
+            response.redirect('/admin/clients/update');
         });  
     });
 
