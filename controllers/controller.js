@@ -3,8 +3,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 // const User = require('../models/user.js')
 const app = express();
-const path = require("path");
 const db = require("../models");
+const bcrypt = require('bcryptjs');
+const path = require("path");
 
 module.exports = (app) => {
 
@@ -15,7 +16,7 @@ module.exports = (app) => {
             var progObject = {
                 programs: result
             };
-            console.log(progObject);
+            // console.log(progObject);
             response.render('landing', progObject);
         });
     });
@@ -24,8 +25,8 @@ module.exports = (app) => {
     app.get('/user/workout', (request, response) =>{
         db.WorkoutDay.findOne({
             where: {
-                day: sessionStorage.getItem('workoutDay', 1), // SessionStorageUserCurrentDay
-                ProgramId: 1 // SessionStorageUserProgramId
+                day: sessionStorage.getItem('workoutDay'), // SessionStorageUserCurrentDay
+                ProgramId: sessionStorage.getItem('ProgramId') // SessionStorageUserProgramId
             },
             include: {
                 model: db.Program,
@@ -39,11 +40,13 @@ module.exports = (app) => {
             console.log(workoutObject);
             response.render('user-workout');
         });
+    app.get('/user/workout', isLoggedIn, (request, response) =>{
+        response.render('user-workout');
     });
 
     app.get('/user/profile', (request, response) =>{
         response.render('user-profile');
-    })
+    });
 
 // Client List
     app.get('/admin/clients', (request, response) => {
@@ -57,7 +60,7 @@ module.exports = (app) => {
             var clientList = {
                 clients: result
             };
-            response.render('clientList', clientList);
+            response.render('admin-client', clientList);
         });
     });
 
@@ -74,7 +77,7 @@ module.exports = (app) => {
             var progList = {
                 programs: result
             };
-            response.render('newWorkout', progList);
+            response.render('admin-new-workout', progList);
         });
     });
     
@@ -119,28 +122,7 @@ module.exports = (app) => {
         });
     });
 
-
-// List of workouts for individual program
-    // app.get('/admin/programs/:id', (request, response) => {
-    //     db.Program.findOne({
-    //         where: {
-    //             id: request.params.id
-    //         },
-    //         attributes: ['id', 'name'],
-    //         include: {
-    //             model: db.WorkoutDay,
-    //             attributes: ['day', 'text']    
-    //         }
-    //     }).then((results) =>{
-    //         var progDetails = {
-    //             details: results
-    //         };
-    //         console.log(progDetails);
-    //         response.render('details', progDetails)
-    //     })
-    // });
-
-app.get('/admin/programs/:id', (request, response) => {
+    app.get('/admin/programs/:id', (request, response) => {
         db.Program.findOne({
             where: {
                 id: request.params.id
@@ -153,7 +135,7 @@ app.get('/admin/programs/:id', (request, response) => {
         }).then((results) =>{
  
             response.json(results);
-        })
+        });
     });
 
 // Form page for Client Program UPDATE
@@ -183,36 +165,96 @@ app.get('/admin/programs/:id', (request, response) => {
 
     // User Registration routes    
     app.post('/users/register', (request, response) => {
-         db.User.find({where: {username: request.username}}).success((user) => {
-                if(!user) {
-                    db.User.create({
-                        username: request.body.username, 
-                        password: request.body.password, 
-                        name: request.body.name, 
-                        email: request.body.email
-                    }).error((err) => {
-                        console.log(err);
-                    });
-                } else {
-                    response.redirect('/register')
-                }
-            })
-            response.redirect('/')
-    });
-    
-    app.post('/users/login',
-          passport.authenticate('local', {
-                successRedirect: '/profile',
-                failureRedirect: '/register',
-                failureFlash: true
-            }),
-        (request, response) => {
-            response.redirect('/')
-   });
+         let name = request.body.username; 
+         let username = request.body.username;
+         let email = request.body.email;
+         let password = request.body.password;
+         let password2 = request.body.password2;
+         
+          request.checkBody('name', 'Name is required').notEmpty();
+          request.checkBody('email', 'Email is required').notEmpty();
+          request.checkBody('email', 'Email is not valid').isEmail();
+          request.checkBody('username', 'username is required').notEmpty()
+          request.checkBody('password', 'Password is required').notEmpty()
+          request.checkBody('password2', 'Passwords do not match').equals(request.body.password);
+             
+              let errors = request.validationErrors();
+              if(errors){
+                  response.redirect('/', {errors: errors});
+              } else {
+                
+                 let salt = bcrypt.genSaltSync(10)
+                 let hashedPassword = bcrypt.hashSync(password, salt) 
+                 db.User.create({
+                     name: name,
+                     username: username,
+                     password: hashedPassword,
+                     salt: salt,
+                     email: email
+                 }).then(
+                    ()=>{
+                        console.log("User Registered")
+                        response.redirect('/');
+                    }
+             )}
+     });
 
-    app.get('/logout', (request, response) => {
-        request.logout();
-        request.flash('You are logged out');
-        requst.redirect('/login');
-    })
-};
+
+
+      passport.use(new LocalStrategy.Strategy(
+        (username, password, done) => {
+        db.User.findOne({ where: { 'username': username }}).then((user) => {
+            console.log(user.get({
+                    plain: true
+                }))
+            let hashedPW = bcrypt.hashSync(password, user.salt) 
+            if(user.password === hashedPW){
+              return  done(null, user);
+            }
+            return done(null, false , console.log('incorrect password'))
+          })
+        }
+      ));
+
+      // function that allowes rout access only to logged in users /// 
+      function isLoggedIn(request, response, next){
+          if(request.isAuthenticated()){
+              return next();
+          }
+          response.redirect('/');
+          
+      }
+    // function that allowes rout access only to logged in users /// 
+          function notLoggedIn(request, response, next){
+          if(!request.isAuthenticated()){
+              return next();
+          }
+          response.redirect('/');
+      }
+        // Serialize Sessions
+      passport.serializeUser((user, done) => {
+          console.log("-user object being serialized ---->" + user)
+        done(null, user);
+      });
+
+    //   Deserialize Sessions
+      passport.deserializeUser((user, done) => {
+        db.User.findOne({where: {'username': user.username}}).then( (user) => {
+          done(null, user);
+        }).catch((err) => {
+          done(err, null)
+        });
+      });
+
+
+
+        app.post('/login', passport.authenticate('local', 
+          {  successRedirect: '/',
+            failureRedirect: '/signup'}
+        ));
+
+        app.get('/logout', isLoggedIn, (request, response, next) => {
+            request.logout();
+            response.redirect('/');
+        })
+});
