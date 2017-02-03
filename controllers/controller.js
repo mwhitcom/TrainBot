@@ -40,6 +40,7 @@ module.exports = (app) => {
             console.log(workoutObject);
             response.render('user-workout', workoutObject);
         });
+    });
     app.get('/user/workout', isLoggedIn, (request, response) =>{
         response.render('user-workout');
     });
@@ -264,4 +265,4 @@ module.exports = (app) => {
             request.logout();
             response.redirect('/');
         })
-})};
+};
