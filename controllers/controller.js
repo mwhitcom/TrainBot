@@ -125,7 +125,7 @@ module.exports = (app) => {
     //     })
     // });
 
-app.get('/admin/programs/:id', (request, response) => {
+    app.get('/admin/programs/:id', (request, response) => {
         db.Program.findOne({
             where: {
                 id: request.params.id
