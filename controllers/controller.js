@@ -51,8 +51,35 @@ module.exports = (app) => {
         });
     });
 
-    app.get('/user/profile', (request, response) => {
-        response.render('user-profile');
+    app.get('/user/profile', isLoggedIn, (request, response) => {
+        db.User.findOne({
+            where: {
+                id: request.user.id
+            },
+            attributes: ['name', 'username', 'email', 'password', 'currentDay'],
+            include: {
+                model: db.Program,
+                attritbues: ['name', 'days']
+            }
+        }).then((result) => {
+            var userInfo = {
+                info: result
+            };
+            console.log(result);
+            response.render('user-profile', userInfo);
+        });
+    });
+
+    app.put('/user/profile', isLoggedIn, (request, response) => {
+        db.User.update({
+            name: request.body.name,
+            username: request.body.username,
+            email:request.body.email
+        },{
+            where: {id: request.user.id}
+        }).then((result) => {
+            response.redirect('/user/profile');
+        })
     });
 
 // Client List
@@ -172,7 +199,7 @@ module.exports = (app) => {
 
     // User Registration routes    
     app.post('/users/register', (request, response) => {
-         let name = request.body.username; 
+         let name = request.body.name; 
          let username = request.body.username;
          let email = request.body.email;
          let password = request.body.password;
