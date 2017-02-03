@@ -221,16 +221,20 @@ module.exports = (app) => {
     
         app.post('/login', passport.authenticate('local-signIn', 
           {  successRedirect: '/user/workout',
-            failureRedirect: '/signup'}
+            failureRedirect: '/',
+            failureFlash: true
+        }
         ));
 
         app.post('/login/admin', passport.authenticate('local-signIn', 
           {  successRedirect: '/admin/clients',
-            failureRedirect: '/signup'}
+            failureRedirect: '/',
+            failureFlash: true}
         ));
 
         app.get('/logout', isLoggedIn, (request, response, next) => {
             request.logout();
+            request.flash('success_msg', "You are logged out");
             response.redirect('/');
         })
 
@@ -267,8 +271,9 @@ module.exports = (app) => {
                      ProgramId: program
                  }).then(
                     (user)=>{
-                       passport.authenticate("local-signIn", {failureRedirect:"/signup", successRedirect: "/user/profile"})(request, response) 
-                    }
+                       passport.authenticate("local-signIn", {failureRedirect:"/", successRedirect: "/user/profile"})(request, response) 
+                       request.flash('success_msg', 'You are registered and can now login');
+                     }
              )}
      });
 
@@ -279,21 +284,18 @@ module.exports = (app) => {
       passport.use('local-signIn', new LocalStrategy.Strategy(
         (username, password, done) => {
         db.User.findOne({ where: { 'username': username }}).then((user) => {
-            console.log(user.get({
-                    plain: true
-                }))
+            if(!user){return done(null, false, {message:'Unknown User'})}
             let hashedPW = bcrypt.hashSync(password, user.salt) 
             if(user.password === hashedPW){
-
               return  done(null, user);
             }
-            return done(null, false , console.log('incorrect password'))
+            return done(null, false , { message: 'Incorrect password.'})
           })
         }
       ));
 
       // function that allowes rout access only to logged in users /// 
-      function isLoggedIn(request, response, next){
+       isLoggedIn =(request, response, next) => {
           if(request.isAuthenticated()){
               return next();
           }
@@ -301,7 +303,7 @@ module.exports = (app) => {
           
       }
     // function that allowes rout access only to logged in users /// 
-          function notLoggedIn(request, response, next){
+           notLoggedIn =(request, response, next) => {
           if(!request.isAuthenticated()){
               return next();
           }
@@ -309,13 +311,12 @@ module.exports = (app) => {
       }
         // Serialize Sessions
       passport.serializeUser((user, done) => {
-          console.log("-user object being serialized ---->" + user)
         done(null, user);
       });
 
     //   Deserialize Sessions
       passport.deserializeUser((user, done) => {
-        db.User.findOne({where: {'username': user.username}}).then( (user) => {
+        db.User.findOne({where: {'username': user.username}}).then((user) => {
           done(null, user);
         }).catch((err) => {
           done(err, null)
