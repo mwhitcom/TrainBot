@@ -69,12 +69,12 @@ module.exports = (app) => {
         });
     });
 
-// Create Program page
-
+// New program page
     app.get('/admin/create', (request, response) => {
         response.render('admin-create');
     });
 
+// Creates new program
     app.post('/admin/create', (request, response) => {
         db.Program.create(
             request.body
@@ -94,6 +94,7 @@ module.exports = (app) => {
         });
     });
     
+// Create new workout
     app.post('/admin/create/workout', (request, response) => {
         console.log(request.body);
         db.WorkoutDay.create({
@@ -127,15 +128,15 @@ module.exports = (app) => {
     });
 
 // creates new program
-    app.post('admin/programs', (request, response) =>{
-        db.Program.create({
-            name: request.body.name,
-            days: request.body.days,
-            description: request.body.description
-        }).then((dbProgram)=>{
-            response.json(dbProgram);
-        });
-    });
+    // app.post('admin/programs', (request, response) =>{
+    //     db.Program.create({
+    //         name: request.body.name,
+    //         days: request.body.days,
+    //         description: request.body.description
+    //     }).then((dbProgram)=>{
+    //         response.json(dbProgram);
+    //     });
+    // });
 
 // gets the individual workout program
     app.get('/admin/programs/:id', (request, response) => {
