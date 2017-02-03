@@ -1,10 +1,6 @@
 // Progress bar percent
 $(document).ready(() => {
-    // var value = $('.data-storage').attr('id');
-    // var split = value.split(',');
-    // console.log(split);
     var length = $('.data-storage').attr('id');
-    console.log(length);
 
     for (var i = 0; i < length; i++){
         var currentDay = $(`.${i+1}`).attr('id');
