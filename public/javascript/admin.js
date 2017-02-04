@@ -96,28 +96,28 @@ function getWorkout(id, program){
 
             $(newDiv).prepend(h3);
             $(newDiv).append(p);
-            $(newDiv).append( addUpdateButton(day, program) );
+            // $(newDiv).append( addUpdateButton(day, program) );
             $('.workouts-content-block').append(newDiv);  
         }
     });
 };
 
 // Puts update button on individual workout, from the Admin/Program/Workout
-function addUpdateButton(day, program){
-    var newBtn = $('<button>');
-    var btnDiv = $('<div>');
-    newBtn.attr({
-        type: 'submit',
-    });
-    newBtn.data({
-        dayId: day,
-        progId: program
-    });
-    newBtn.text('Update Workout?');
-    $(btnDiv).append(newBtn)
-    btnDiv.addClass('header-button update-button');
-    return btnDiv;
-};
+// function addUpdateButton(day, program){
+//     var newBtn = $('<button>');
+//     var btnDiv = $('<div>');
+//     newBtn.attr({
+//         type: 'submit',
+//     });
+//     newBtn.data({
+//         dayId: day,
+//         progId: program
+//     });
+//     newBtn.text('Update Workout?');
+//     $(btnDiv).append(newBtn)
+//     btnDiv.addClass('header-button update-button');
+//     return btnDiv;
+// };
 
 
 // Update button for individual workout, from the Admin/Program/Workout
