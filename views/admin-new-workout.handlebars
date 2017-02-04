@@ -35,7 +35,7 @@
     <ul>
         <li class="hamburger"><i class="fa fa-bars" aria-hidden="true"></i></li>
         <li><img class ="logo" src="/assets/images/trainbot_logo.png" alt="TrainBot"></li>
-        <li class="header-button"><button type="button">Logout</button></li>
+        <li class="header-button"><a href="/logout"><button type="button">Logout</button></a></li>
     </ul>
 </div>
 
@@ -59,8 +59,8 @@
                 </div>
 
                 <div class="create__workout-text">
-                    <label>What is the workout?</label>
-                    <input type='textarea' name='text' id='workout-text' placeholder="A. 3x5 Back Squats etc..">
+                    <label class="workout-enter-label">What is the workout?</label>
+                    <textarea name='text' id='workout-text' placeholder="A. 3x5 Back Squats etc.."></textarea>
                 </div>
                
                 <button class="submit-button submit-workout" type="submit">Next Day...</button>
