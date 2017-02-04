@@ -38,15 +38,15 @@ app.use(express.static("./public"));
 app.use(cookieParser());
 // express session setting // 
 
-// app.use(session({
-//   secret: "user secret",
-//   // store: new SequelizeStore({
-//   //   db: db.sequelize
-//   // }),
-//   cookie: {maxAge: 180*60*1000},
-//   resave: true,
-//   saveUninitialized: true
-// }));
+app.use(session({
+  secret: "user secret",
+  // store: new SequelizeStore({
+  //   db: db.sequelize
+  // }),
+  cookie: {maxAge: 180*60*1000},
+  resave: true,
+  saveUninitialized: true
+}));
 
 app.use(passport.initialize()); //initializes the session
 app.use(passport.session()); //tells passport to be in charge of the session
