@@ -1,6 +1,6 @@
 # [TrainBot](https://rhouse-train-bot.herokuapp.com/) - UCLA Coding Bootcamp Project 2
 
-TrainBot was created by Andrey Orlov, Matt Whitcomb, and Ryan House as their second project for the UCLA Coding Bootcamp.
+TrainBot was created by [Andrey Orlov](https://github.com/andreyorlov33), [Matt Whitcomb](https://github.com/mwhitcom), and [Ryan House](https://github.com/rhouse00) as their second project for the UCLA Coding Bootcamp.
 
 
 ## Objective 
