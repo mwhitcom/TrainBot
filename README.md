@@ -32,26 +32,27 @@ The project requirements listed below were provided by the project markdown:
 
 Landing page with personal trainer bio
 User and admin logins - User can sign up for specific program upon login
-Admin views:
+#### Admin views:
 * Landing page with current client list and their progress through Programs
 * Program creation page - Create Program with daily workouts
-User views:
+
+#### User views:
 * Dashboard - ability to change login info, view progress in current program
 * Daily Workout - page displaying the current daily workouts
 
 
 ## Technologies Used
 
-JavaScript
-jQuery
-Passport.js
-Handlebars.js
-Node.js
-Express.js
-Sequelize
-MySQL
-HTML5
-CSS3
+* JavaScript
+* jQuery
+* Passport.js
+* Handlebars.js
+* Node.js
+* Express.js
+* Sequelize
+* MySQL
+* HTML5
+* CSS3
 
 
 ## Approach Taken
@@ -60,9 +61,11 @@ We pinpointed an issue that a lot of freelance personal trainers experience: tou
 
 Once we got past this point we started a Trello board to keep track of tasks and then seperated the project into 3 main areas: UI/UX, data storage, and Authentication (using Passport.js). Each us us picked a section and took charge of that code, and then all worked together on merging it together into a coehsive, efficient web app.
 
+
 ## Roadblocks
 
 The largest roadblock was the implementation of authentication, but in the end we were able to get it working smoothly.
+
 
 ## Future Implementations
 
