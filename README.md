@@ -1,13 +1,15 @@
-##[TrainBot](https://rhouse-train-bot.herokuapp.com/) - UCLA Coding Bootcamp Project 2
+# [TrainBot](https://rhouse-train-bot.herokuapp.com/) - UCLA Coding Bootcamp Project 2
 
 TrainBot was created by Andrey Orlov, Matt Whitcomb, and Ryan House as their second project for the UCLA Coding Bootcamp.
 
 
-####Objective 
+## Objective 
+
 TrainBot is a website template to help personal trainers created websites for their business. Websites like Wordpress offer solutions to easily creating such websites, but don't contain the ability to help personal trainers keep track of their clients, dynamically update their programs, and ability to quickly cater a program to a user. 
 
 
-####Project Requirements
+## Project Requirements
+
 The project requirements listed below were provided by the project markdown:
 
 * Must use a Node and Express Web Server
@@ -26,7 +28,7 @@ The project requirements listed below were provided by the project markdown:
 * Create a migration strategy for sharing data across teammembers.
 
 
-####MVP
+## MVP
 
 Landing page with personal trainer bio
 User and admin logins - User can sign up for specific program upon login
@@ -38,7 +40,7 @@ User views:
 * Daily Workout - page displaying the current daily workouts
 
 
-####Technologies Used
+## Technologies Used
 
 JavaScript
 jQuery
@@ -52,17 +54,17 @@ HTML5
 CSS3
 
 
-####Approach Taken
+## Approach Taken
 
 We pinpointed an issue that a lot of freelance personal trainers experience: tough to keep up with communication with clients and really get a gauge of how they are doing with the program. The current solution consists of a lot of emails and excel sheets. We aimed to build a personal website template combined with a training hub where personal trainers could keep track of their client's progress and also store their various workout programs for clients to view.
 
 Once we got past this point we started a Trello board to keep track of tasks and then seperated the project into 3 main areas: UI/UX, data storage, and Authentication (using Passport.js). Each us us picked a section and took charge of that code, and then all worked together on merging it together into a coehsive, efficient web app.
 
-####Roadblocks
+## Roadblocks
 
 The largest roadblock was the implementation of authentication, but in the end we were able to get it working smoothly.
 
-####Future Implementations
+## Future Implementations
 
 * Re-build the front-end using React.js
 * Implement a pay system for users signing up to use the personal trainer's custom programs.
