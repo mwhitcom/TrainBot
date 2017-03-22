@@ -16,7 +16,7 @@
     "url": "git+https://github.com/mwhitcom/TrainBot.git"
   },
   "author": "FunBot (Andrey Orlov, Matt Whitcomb, Ryan House)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mwhitcom/TrainBot/issues"
   },
